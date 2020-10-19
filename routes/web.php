@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Login Register
+Route::get('', 'LoginRegisterController@loginPage');
+Route::post('login-process', 'LoginRegisterController@loginProcess');
+Route::post('register-process', 'LoginRegisterController@registerProcess');
