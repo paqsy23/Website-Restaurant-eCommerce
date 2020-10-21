@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Login Register
-Route::get('', 'LoginRegisterController@loginPage');
+Route::get('login', 'LoginRegisterController@loginPage');
+Route::get('register', 'LoginRegisterController@registerPage');
 Route::post('login-process', 'LoginRegisterController@loginProcess');
 Route::post('register-process', 'LoginRegisterController@registerProcess');
+
+// Main Page
+Route::get('', 'MainController@landing');
