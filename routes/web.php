@@ -18,6 +18,7 @@ Route::get('login', 'LoginRegisterController@loginPage');
 Route::get('register', 'LoginRegisterController@registerPage');
 Route::post('login-process', 'LoginRegisterController@loginProcess');
 Route::post('register-process', 'LoginRegisterController@registerProcess');
+Route::get('logout', 'LoginRegisterController@logout');
 
 // Main Page
-Route::get('', 'MainController@landing');
+Route::get('/', 'MainController@landing');

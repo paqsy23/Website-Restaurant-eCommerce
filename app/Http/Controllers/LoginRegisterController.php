@@ -85,4 +85,10 @@ class LoginRegisterController extends Controller
             "success" => "Registration Success"
         ]);
     }
+
+    public function logout()
+    {
+        $cookie = Cookie::forget('user-login');
+        return redirect('/')->withCookie($cookie);
+    }
 }

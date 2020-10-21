@@ -6,10 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/google_icons.css') }}">
     <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.js') }}"></script>
     <style>
         #right-nav li a { color: white; }
+        .float-button {
+            position: fixed;
+            border-radius: 100%;
+            width: 3.5em;
+            height: 3.5em;
+            bottom: 0;
+            right: 0;
+        }
     </style>
 </head>
 <body>
@@ -20,8 +29,8 @@
             </div>
 
             {{-- <div class="flex-grow-1 d-flex"> --}}
-                <form action="" class="form-inline flex-grow-1 d-flex mx-0 mx-lg-auto p-1">
-                    <input type="text" name="" id="value" class="form-control flex-grow-1" placeholder="Search">
+                <form action="{{ url('search') }}" method="get" class="form-inline flex-grow-1 d-flex mx-0 mx-lg-auto p-1">
+                    <input type="text" name="name" id="" class="form-control flex-grow-1" placeholder="Search">
                 </form>
             {{-- </div> --}}
 
@@ -29,7 +38,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse flex-grow-1 d-flex" id="navbarText">
+            <div class="collapse navbar-collapse" id="navbarText">
                 @if (Cookie::get('user-login') == null)
                     <ul class="navbar-nav ml-auto" id="right-nav">
                         <li class="nav-item"><a class="nav-link" href="{{ url('register') }}">Sign Up</a></li>
@@ -37,20 +46,23 @@
                     </ul>
                 @else
                     <ul class="navbar-nav ml-auto" id="right-nav">
-                        <li class="nav-item"><a href="" class="nav-link">{{ $user->nama }}</a></li>
+                        <li class="nav-item dropdown">
+                            <a href="" class="nav-link dropdown-toggle" id="menu-dropdown" data-toggle="dropdown">{{ $user->nama }}</a>
+                            <div class="dropdown-menu" aria-labelledby="menu-dropdown">
+                                <a href="" class="dropdown-item text-dark">Profile</a>
+                                <a href="{{ url('logout') }}" class="dropdown-item text-dark">Logout</a>
+                            </div>
+                        </li>
                     </ul>
                 @endif
             </div>
         </div>
     </nav>
+    <button type="button" class="btn btn-lg btn-danger float-button mr-3 mb-3">
+        <i class="material-icons">shopping_cart</i>
+    </button>
 </body>
 <script>
-    $('#value').keyup(function(e){
-        if (e.keycode == 13) {
-            var value = $('#value').val()
-            alert(value)
-            window.location.href = new URL('/search?nama=' + value, 'http://127.0.0.1')
-        }
-    })
+    $('.dropdown-toggle').dropdown();
 </script>
 </html>
