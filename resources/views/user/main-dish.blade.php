@@ -8,7 +8,7 @@
             <div class="card">
                 <img src="{{ asset('image/main_dish_sample.jpg') }}" alt="" class="card-img-top">
                 <div class="card-body">
-                    <h5 class="card-title">Promo's Title</h5>
+                    <h5 class="card-title">Menu's Title</h5>
                     <p class="card-text">
                         Lorem ipsum dolor, sit amet consectetur adipisicing elit. At, cupiditate. <br><br>
                         <span class="text-danger" style="font-weight: bold;">Rp. {{ rand(15000, 25000)}}</span>
