@@ -6,6 +6,9 @@
     use App\Http\Controllers\Controller;
 
     class AdminController extends Controller{
+        public function adminLanding(){
+            return view('admin_page');
+        }
         public function page_insertMakanan(){
             return view('makanan.insertMakanan');
         }

@@ -22,8 +22,13 @@ Route::get('logout', 'LoginRegisterController@logout');
 
 // Main Page
 Route::get('/', 'MainController@landing');
+Route::get('promos', 'MainController@promos');
+Route::get('main-dishes', 'MainController@main_dishes');
+Route::get('desserts', 'MainController@desserts');
+Route::get('drinks', 'MainController@drinks');
 
 // Admin Page
+Route::get('admin', 'AdminController@adminLanding');
 Route::get('page_insertMakanan', 'AdminController@page_insertMakanan');
 Route::get('page_updateMakanan', 'AdminController@page_updateMakanan');
 Route::get('page_deleteMakanan', 'AdminController@page_deleteMakanan');
