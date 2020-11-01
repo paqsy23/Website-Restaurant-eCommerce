@@ -22,10 +22,11 @@
     </style>
 </head>
 <body>
+    {{-- Navbar --}}
     <nav class="navbar fixed-top navbar-dark navbar-expand-lg" style="background-color: #dc3545">
         <div class="container-fluid">
             <div class="navbar-header flex-grow-1" style="max-width: 20%;">
-                <a href="" class="navbar-brand">Ini Nama</a>
+                <a href="{{ url('/') }}" class="navbar-brand">Ini Nama</a>
             </div>
 
             {{-- <div class="flex-grow-1 d-flex"> --}}
@@ -39,13 +40,12 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarText">
-                @if (Cookie::get('user-login') == null)
-                    <ul class="navbar-nav ml-auto" id="right-nav">
+                <ul class="navbar-nav ml-auto" id="right-nav">
+                    @if (Cookie::get('user-login') == null)
                         <li class="nav-item"><a class="nav-link" href="{{ url('register') }}">Sign Up</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url('login') }}">Login</a></li>
-                    </ul>
-                @else
-                    <ul class="navbar-nav ml-auto" id="right-nav">
+                    @else
+                        <li class="nav-item"><a class="nav-link" href="">Contact Us</a></li>
                         <li class="nav-item dropdown">
                             <a href="" class="nav-link dropdown-toggle" id="menu-dropdown" data-toggle="dropdown">{{ $user->nama }}</a>
                             <div class="dropdown-menu" aria-labelledby="menu-dropdown">
@@ -53,11 +53,26 @@
                                 <a href="{{ url('logout') }}" class="dropdown-item text-dark">Logout</a>
                             </div>
                         </li>
-                    </ul>
-                @endif
+                    @endif
+                </ul>
             </div>
         </div>
     </nav>
+
+    {{-- Content --}}
+    <div class="container mt-5 py-4">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <a href="{{ url('promos') }}"><button class="btn btn-outline-danger @yield('promo-tab')">Promo</button></a>
+                <a href="{{ url('main-dishes') }}"><button class="btn btn-outline-danger @yield('main-dishes-tab')">Main Dishes</button></a>
+                <a href="{{ url('desserts') }}"><button class="btn btn-outline-danger @yield('desserts-tab')">Desserts</button></a>
+                <a href="{{ url('drinks') }}"><button class="btn btn-outline-danger @yield('drinks-tab')">Drinks</button></a>
+            </div>
+            @yield('content')
+        </div>
+    </div>
+
+    {{-- Float action button --}}
     <button type="button" class="btn btn-lg btn-danger float-button mr-3 mb-3">
         <i class="material-icons">shopping_cart</i>
     </button>

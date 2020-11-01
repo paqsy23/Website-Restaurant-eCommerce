@@ -31,7 +31,7 @@ class LoginRegisterController extends Controller
 
         if ($request->user_login == "admin" && $request->pass_login == "admin") {
             // Admin
-            return view('admin_page');
+            return redirect('admin');
         } else {
             // User
             $users = User::all();
