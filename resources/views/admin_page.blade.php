@@ -40,8 +40,7 @@
                         <a href="" class="nav-link dropdown-toggle" id="menu-dropdown" data-toggle="dropdown">Barang</a>
                         <div class="dropdown-menu" aria-labelledby="menu-dropdown">
                             <a href="{{ url('page_insertMakanan') }}" class="dropdown-item text-dark">Insert Makanan</a>
-                            <a href="{{ url('page_updateMakanan') }}" class="dropdown-item text-dark">Update Makanan</a>
-                            <a href="{{ url('page_deleteMakanan') }}" class="dropdown-item text-dark">Delete Makanan</a>
+                            <a href="{{ url('page_listMakanan') }}" class="dropdown-item text-dark">List Makanan</a>
                         </div>
                     </li>
                 </ul>
@@ -53,8 +52,7 @@
                         <a href="" class="nav-link dropdown-toggle" id="menu-dropdown" data-toggle="dropdown">Promo</a>
                         <div class="dropdown-menu" aria-labelledby="menu-dropdown">
                             <a href="{{ url('page_insertPromo') }}" class="dropdown-item text-dark">Insert Promo</a>
-                            <a href="{{ url('page_updatePromo') }}" class="dropdown-item text-dark">Update Promo</a>
-                            <a href="{{ url('page_deletePromo') }}" class="dropdown-item text-dark">Delete Promo</a>
+                            <a href="{{ url('page_listPromo') }}" class="dropdown-item text-dark">List Promo</a>
                         </div>
                     </li>
                 </ul>
@@ -65,9 +63,8 @@
                     <li class="nav-item dropdown">
                         <a href="" class="nav-link dropdown-toggle" id="menu-dropdown" data-toggle="dropdown">Kategori</a>
                         <div class="dropdown-menu" aria-labelledby="menu-dropdown">
-                            <a href="{{ url('page_insertKategori') }}" class="dropdown-item text-dark">Insert Promo</a>
-                            <a href="{{ url('page_updateKategori') }}" class="dropdown-item text-dark">Update Promo</a>
-                            <a href="{{ url('page_deleteKategori') }}" class="dropdown-item text-dark">Delete Promo</a>
+                            <a href="{{ url('page_insertKategori') }}" class="dropdown-item text-dark">Insert Kategori</a>
+                            <a href="{{ url('page_listKategori') }}" class="dropdown-item text-dark">List Kategori</a>
                         </div>
                     </li>
                 </ul>
