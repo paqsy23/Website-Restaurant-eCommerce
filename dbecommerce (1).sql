@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 19, 2020 at 05:01 AM
+-- Generation Time: Nov 02, 2020 at 06:17 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -116,6 +116,18 @@ CREATE TABLE `dtrans` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `gambar_barang`
+--
+
+DROP TABLE IF EXISTS `gambar_barang`;
+CREATE TABLE `gambar_barang` (
+  `id_gambar` varchar(8) NOT NULL,
+  `id_barang` varchar(8) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `htrans`
 --
 
@@ -156,6 +168,14 @@ CREATE TABLE `kategori` (
   `nama` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `kategori`
+--
+
+INSERT INTO `kategori` (`id_kategori`, `nama`) VALUES
+('KA001', 'ayam goreng'),
+('KA002', 'Mie');
+
 -- --------------------------------------------------------
 
 --
@@ -167,6 +187,21 @@ CREATE TABLE `kota` (
   `id_kota` varchar(8) NOT NULL,
   `id_provinsi` varchar(8) NOT NULL,
   `nama` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `promo`
+--
+
+DROP TABLE IF EXISTS `promo`;
+CREATE TABLE `promo` (
+  `id_promo` varchar(8) NOT NULL,
+  `nama_promo` varchar(50) NOT NULL,
+  `potongan_harga` int(10) NOT NULL,
+  `detail` varchar(255) NOT NULL,
+  `syarat_promo` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -210,6 +245,13 @@ CREATE TABLE `user` (
   `password` varchar(255) NOT NULL,
   `notelp` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id_user`, `nama`, `email`, `password`, `notelp`) VALUES
+('stefan', 'stefan', 'stefan@gmail.com', '$2y$10$heyPHzNScFJNR0Ei44o0.uilqLP54TqxUkv8Gtgkb3L1QFKdeoXF6', 123123);
 
 --
 -- Indexes for dumped tables
@@ -258,6 +300,12 @@ ALTER TABLE `dtrans`
   ADD KEY `id_htrans` (`id_htrans`);
 
 --
+-- Indexes for table `gambar_barang`
+--
+ALTER TABLE `gambar_barang`
+  ADD PRIMARY KEY (`id_gambar`);
+
+--
 -- Indexes for table `htrans`
 --
 ALTER TABLE `htrans`
@@ -283,6 +331,12 @@ ALTER TABLE `kategori`
 ALTER TABLE `kota`
   ADD PRIMARY KEY (`id_kota`),
   ADD KEY `id_provinsi` (`id_provinsi`);
+
+--
+-- Indexes for table `promo`
+--
+ALTER TABLE `promo`
+  ADD PRIMARY KEY (`id_promo`);
 
 --
 -- Indexes for table `provinsi`
@@ -323,24 +377,6 @@ ALTER TABLE `barang`
   ADD CONSTRAINT `barang_ibfk_1` FOREIGN KEY (`id_kategori`) REFERENCES `kategori` (`id_kategori`);
 
 --
--- Constraints for table `cart`
---
-ALTER TABLE `cart`
-  ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`id_barang`) REFERENCES `barang` (`id_barang`);
-
---
--- Constraints for table `chat`
---
-ALTER TABLE `chat`
-  ADD CONSTRAINT `chat_ibfk_1` FOREIGN KEY (`id_chatroom`) REFERENCES `chatroom` (`id_chatroom`);
-
---
--- Constraints for table `chatroom`
---
-ALTER TABLE `chatroom`
-  ADD CONSTRAINT `chatroom_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
-
---
 -- Constraints for table `dtrans`
 --
 ALTER TABLE `dtrans`
@@ -348,24 +384,10 @@ ALTER TABLE `dtrans`
   ADD CONSTRAINT `dtrans_ibfk_2` FOREIGN KEY (`id_htrans`) REFERENCES `htrans` (`id_trans`);
 
 --
--- Constraints for table `h_dtrans`
+-- Constraints for table `gambar_barang`
 --
-ALTER TABLE `h_dtrans`
-  ADD CONSTRAINT `h_dtrans_ibfk_1` FOREIGN KEY (`id_user_pembeli`) REFERENCES `user` (`id_user`),
-  ADD CONSTRAINT `h_dtrans_ibfk_2` FOREIGN KEY (`id_trans`) REFERENCES `htrans` (`id_trans`);
-
---
--- Constraints for table `kota`
---
-ALTER TABLE `kota`
-  ADD CONSTRAINT `kota_ibfk_1` FOREIGN KEY (`id_provinsi`) REFERENCES `provinsi` (`id_provinsi`);
-
---
--- Constraints for table `review`
---
-ALTER TABLE `review`
-  ADD CONSTRAINT `review_ibfk_1` FOREIGN KEY (`id_barang`) REFERENCES `barang` (`id_barang`),
-  ADD CONSTRAINT `review_ibfk_2` FOREIGN KEY (`id_dtrans`) REFERENCES `dtrans` (`id_dtrans`);
+ALTER TABLE `gambar_barang`
+  ADD CONSTRAINT `gambar_barang_ibfk_1` FOREIGN KEY (`id_gambar`) REFERENCES `barang` (`id_barang`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
