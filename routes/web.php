@@ -24,15 +24,15 @@ Route::get('logout', 'LoginRegisterController@logout');
 Route::get('/', 'MainController@landing');
 Route::get('promos', 'MainController@promos');
 Route::get('main-dishes', 'MainController@main_dishes');
+Route::get('main-dishes/{page}', 'MainController@main_dishes');
 Route::get('desserts', 'MainController@desserts');
+Route::get('desserts/{page}', 'MainController@desserts');
 Route::get('drinks', 'MainController@drinks');
+Route::get('drinks/{page}', 'MainController@drinks');
 
-<<<<<<< HEAD
 // Makanan
-=======
 // Admin Page
 Route::get('admin', 'AdminController@adminLanding');
->>>>>>> a3b60cd236f75e8c03b231d68773e73e3c477da5
 Route::get('page_insertMakanan', 'AdminController@page_insertMakanan');
 Route::get('page_updateMakanan', 'AdminController@page_updateMakanan');
 Route::get('page_deleteMakanan', 'AdminController@page_deleteMakanan');

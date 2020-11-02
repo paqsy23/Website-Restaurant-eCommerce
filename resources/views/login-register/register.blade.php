@@ -50,5 +50,8 @@
             @enderror
         </div>
         <button type="submit" class="btn btn-danger w-50" style="margin-left: 25%;">Register</button>
+        <div class="text-center">
+            Already have an account? <a href="{{ url('login') }}">Login</a>
+        </div>
     </form>
 @endsection

@@ -13,12 +13,21 @@
         </div>
         <div class="form-group">
             <label for="kategori_makanan">Kategori Makanan</label><br>
-            <select id="kategori_makanan" name="kategori_makanan">
+            <select id="kategori_makanan" name="kategori_makanan" class="form-control">
                 <option></option>
                 @foreach($kategori as $row)
-                <option>{{$row->id_kategori."--".$row->nama}}</option>
-            @endforeach
-        </select>
+                    <option value="{{ $row->id_kategori }}">{{$row->id_kategori."--".$row->nama}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="jenis_makanan">Jenis Makanan</label>
+            <select name="jenis_makanan" id="jenis_makanan" class="form-control">
+                <option value=""></option>
+                <option value="main dish">Main Dish</option>
+                <option value="dessert">Dessert</option>
+                <option value="drink">Drink</option>
+            </select>
         </div>
         <div class="form-group">
             <label for="stock_makanan">Stock Makanan</label>
@@ -29,7 +38,7 @@
             <input type="text" name="harga_makanan" id="" class="form-control">
         </div>
         <div class="form-group">
-            <label for="berat_makanan">Berat Makanan (Kg)</label>
+            <label for="berat_makanan">Berat Makanan (gr)</label>
             <input type="text" name="berat_makanan" id="" class="form-control">
         </div>
         <div class="form-group">

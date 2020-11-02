@@ -7,7 +7,7 @@
 
     class AdminController extends Controller{
         public function adminLanding(){
-            return view('admin_page');
+            return view('templates.makanan');
         }
         public function page_insertMakanan(){
             $kategori = DB::select('select * from kategori');
@@ -17,13 +17,15 @@
             $this->validate($request, [
                 'nama_makanan' => 'required',
                 'kategori_makanan' => 'required',
-                'stock_makanan' => 'required',
-                'harga_makanan' => 'required',
-                'berat_makanan' => 'required',
+                'jenis_makanan' => 'required',
+                'stock_makanan' => 'required|integer',
+                'harga_makanan' => 'required|integer',
+                'berat_makanan' => 'required|integer',
                 'deskripsi' => 'required'
             ]);
             $nama_makanan = $request->input('nama_makanan');
             $nama_kategori = $request->input('kategori_makanan');
+            $jenis_makanan = $request->input('jenis_makanan');
             $stock_makanan = $request->input('stock_makanan');
             $harga_makanan = $request->input('harga_makanan');
             $berat_makanan = $request->input('berat_makanan');
@@ -41,7 +43,7 @@
                 $id .= $row[0]->num;
             }
             $row = DB::table('barang')
-            ->insert(['id_barang' => $id, 'id_kategori' => $id_kategori, 'nama' => $nama_makanan, 'stock' => $stock_makanan, 'deskripsi' => $deskripsi, 'harga' => $harga_makanan, 'berat (kg)'=>$berat_makanan, 'status'=>"1"]);
+            ->insert(['id_barang' => $id, 'id_kategori' => $id_kategori, 'nama' => $nama_makanan, 'stock' => $stock_makanan, 'deskripsi' => $deskripsi, 'harga' => $harga_makanan, 'berat (gr)'=>$berat_makanan, 'status'=>"1", 'jenis'=>$jenis_makanan]);
             if ($row){
                 echo $id_kategori;
                 return redirect()->action('AdminController@page_insertMakanan');

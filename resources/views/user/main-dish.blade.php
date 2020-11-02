@@ -3,15 +3,15 @@
 @section('main-dishes-tab', 'active')
 
 @section('content')
-    @for ($i = 0; $i < 8; $i++)
+    @foreach ($main_dishes as $main_dish)
         <div class="col-6 col-md-4 col-lg-3 mt-3">
-            <div class="card">
+            <div class="card" style="min-height: 32em;">
                 <img src="{{ asset('image/main_dish_sample.jpg') }}" alt="" class="card-img-top">
                 <div class="card-body">
-                    <h5 class="card-title">Menu's Title</h5>
+                    <h5 class="card-title">{{ $main_dish->nama }}</h5>
                     <p class="card-text">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. At, cupiditate. <br><br>
-                        <span class="text-danger" style="font-weight: bold;">Rp. {{ rand(15000, 25000)}}</span>
+                        {{ $main_dish->deskripsi }}. <br><br>
+                        <span class="text-danger" style="font-weight: bold;">Rp. {{ $main_dish->harga }}</span>
                     </p>
                 </div>
                 <div class="card-footer">
@@ -19,5 +19,28 @@
                 </div>
             </div>
         </div>
-    @endfor
+    @endforeach
+
+    {{-- Pagination --}}
+    <nav class="col-12 mt-4" aria-label="...">
+        <ul class="pagination justify-content-center">
+            <li class="page-item @if ($pagination->page == 1) disabled @endif">
+                <a class="page-link" href="{{ url('main-dishes/'.($pagination->page-1)) }}" tabindex="-1">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            @for ($i = 1; $i <= $pagination->total; $i++)
+                <li class="page-item @if ($i == $pagination->page)active @endif">
+                    <a class="page-link" href="{{ url('main-dishes/'.$i) }}">{{ $i }}</a>
+                </li>
+            @endfor
+            <li class="page-item @if ($pagination->page == $pagination->total) disabled @endif">
+                <a class="page-link" href="{{ url('main-dishes/'.($pagination->page+1)) }}">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 @endsection

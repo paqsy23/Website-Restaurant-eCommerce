@@ -22,5 +22,8 @@
             @enderror
         </div>
         <button type="submit" class="btn btn-danger w-50" style="margin-left: 25%;">Login</button>
+        <div class="text-center">
+            Don't have an account? <a href="{{ url('register') }}">Register now!</a>
+        </div>
     </form>
 @endsection

@@ -19,6 +19,12 @@
             bottom: 0;
             right: 0;
         }
+        .pagination .page-item a { color: #dc3545; }
+        .page-item.active .page-link {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: #ffffff;
+        }
     </style>
 </head>
 <body>

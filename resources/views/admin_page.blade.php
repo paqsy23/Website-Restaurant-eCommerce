@@ -86,9 +86,6 @@
             </div>
         </div>
     </nav>
-    <button type="button" class="btn btn-lg btn-danger float-button mr-3 mb-3">
-        <i class="material-icons">shopping_cart</i>
-    </button>
 </body>
 <script>
     $('.dropdown-toggle').dropdown();
