@@ -3,7 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
+<<<<<<< HEAD:dbecommerce.sql
 -- Generation Time: Nov 02, 2020 at 09:01 AM
+=======
+-- Generation Time: Nov 02, 2020 at 06:17 AM
+>>>>>>> fcaa68d5e1dd648ddcea0ba15356ae69e824b468:dbecommerce (1).sql
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -229,6 +233,7 @@ CREATE TABLE `kategori` (
 --
 
 INSERT INTO `kategori` (`id_kategori`, `nama`) VALUES
+<<<<<<< HEAD:dbecommerce.sql
 ('KA001', 'Softdrink'),
 ('KA002', 'Mineral Water'),
 ('KA003', 'Juice'),
@@ -237,6 +242,10 @@ INSERT INTO `kategori` (`id_kategori`, `nama`) VALUES
 ('KA006', 'Beef'),
 ('KA007', 'Chicken'),
 ('KA008', 'Noodle');
+=======
+('KA001', 'ayam goreng'),
+('KA002', 'Mie');
+>>>>>>> fcaa68d5e1dd648ddcea0ba15356ae69e824b468:dbecommerce (1).sql
 
 -- --------------------------------------------------------
 
