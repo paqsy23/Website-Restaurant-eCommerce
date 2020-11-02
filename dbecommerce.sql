@@ -266,6 +266,14 @@ CREATE TABLE `promo` (
 
 /*Data for the table `promo` */
 
+insert  into `promo`(`id_promo`,`nama_promo`,`potongan_harga`,`detail`,`syarat_promo`) values 
+('PR001','Diskon 20% untuk Pengguna Baru',20,'Pengguna yang baru mendaftarkan diri akan dapat diskon sebesar 20% untuk 2x pemesanan. Minimal pembelian Rp30rb.','Minimal pembelian Rp 30.000, Berlaku untuk 2x pemesanan, Hanya berlaku di Surabaya, Promo berlaku untuk harga sebelum pajak'),
+('PR002','Diskon Murah Meriah 40%',40,'Nikmati diskon sebesar 40% untuk minimal pembelian Rp55rb!','Minimal pembelian Rp 55.000, Berlaku untuk 1x pemesanan, Hanya berlaku di Surabaya, Promo berlaku untuk harga sebelum pajak'),
+('PR003','Diskon Membahana 50%',50,'Nikmati diskon membahana sebesar 50% untuk minimal pembelian seharga Rp100rb!','Minimal pembelian Rp100.000, Berlaku untuk 1x pemesanan, Hanya berlaku di Surabaya, Promo berlaku untuk harga sebelum pajak'),
+('PR004','Potongan Ongkir 50%',50,'Nikmati potongan Ongkos Kirim sebesar 50% untuk daerah Suarabaya!','Berlaku untuk 2x pemesanan, Hanya berlaku di Surabaya, Promo berlaku untuk harga sebelum pajak'),
+('PR005','Promo Gratis Ongkir',100,'Nikmati Bayar Ongkir GRATIS untuk pemesanan di daerah Surabaya!','Berlaku untuk 1x pemesanan, Hanya berlaku di Surabaya, Promo berlaku untuk harga sebelum pajak'),
+('PR006','Promo Kejut Rayakan Halloween',45,'Dalam rangka Halloween, Rasakan Potongan Harga Mengejutkan sebesar 45% untuk minimal pembelian seharga Rp70rb!','Minimal pembelian Rp70.000, Berlaku untuk 1x pemesanan, Hanya berlaku di Surabaya, Promo berlaku untuk harga sebelum pajak');
+
 /*Table structure for table `provinsi` */
 
 DROP TABLE IF EXISTS `provinsi`;
