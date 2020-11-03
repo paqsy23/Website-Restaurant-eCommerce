@@ -23,6 +23,8 @@ Route::get('logout', 'LoginRegisterController@logout');
 // Main Page
 Route::get('/', 'MainController@landing');
 Route::get('promos', 'MainController@promos');
+Route::get('promos/{page}', 'MainController@promos');
+Route::get('promos/detail/{id}', 'MainController@promoDetail');
 Route::get('main-dishes', 'MainController@main_dishes');
 Route::get('main-dishes/{page}', 'MainController@main_dishes');
 Route::get('desserts', 'MainController@desserts');

@@ -10,8 +10,8 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ $dessert->nama }}</h5>
                     <p class="card-text">
-                        {{ $dessert->deskripsi }} <br><br>
-                        <span class="text-danger" style="font-weight: bold;">Rp. {{ $dessert->harga }}</span>
+                        <span class="text-danger" style="font-weight: bold;">Rp. {{ number_format($dessert->harga, 0) }}</span><br><br>
+                        {{ $dessert->deskripsi }}.
                     </p>
                 </div>
                 <div class="card-footer">

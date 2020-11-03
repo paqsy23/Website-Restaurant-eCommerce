@@ -12,22 +12,19 @@
         <div class="col-sm-12 dropdown-divider"></div>
     </div>
 
-    @for ($i = 0; $i < 4; $i++)
+    @foreach ($promos as $promo)
         <div class="col-6 col-md-4 col-lg-3 mt-3">
-            <div class="card">
+            <div class="card" style="min-height: 26em;">
                 <img src="{{ asset('image/sample_promo.jpg') }}" alt="" class="card-img-top">
                 <div class="card-body">
-                    <h5 class="card-title">Promo's Title</h5>
-                    <p class="card-text">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. At, cupiditate.
-                    </p>
+                    <h5 class="card-title">{{ $promo->nama_promo }}</h5>
                 </div>
                 <div class="card-footer">
-                    <a href="">DETAIL</a>
+                    <a href="{{ url('promos/detail/'.$promo->id_promo) }}" class="text-danger">DETAIL</a>
                 </div>
             </div>
         </div>
-    @endfor
+    @endforeach
 
 
     {{-- Popular Menus --}}
@@ -45,9 +42,9 @@
                 <div class="card-body">
                     <h5 class="card-title">Menu's Title</h5>
                     <p class="card-text">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. At, cupiditate. <br><br>
+                        <span class="text-danger" style="font-weight: bold;">Rp. {{ rand(15000, 25000) }}</span><br><br>
 
-                        <span class="text-danger" style="font-weight: bold;">Rp. {{ rand(15000, 25000) }}</span>
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. At, cupiditate.
                     </p>
                 </div>
                 <div class="card-footer">
