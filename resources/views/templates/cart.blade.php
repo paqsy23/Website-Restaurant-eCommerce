@@ -25,8 +25,6 @@
             border-color: #dc3545;
             color: #ffffff;
         }
-        a.stretched-link { color: black; }
-        a.stretched-link:hover { text-decoration: none; }
     </style>
 </head>
 <body>
@@ -69,23 +67,21 @@
 
     {{-- Content --}}
     <div class="container mt-5 py-4">
-        <div class="row">
-            <div class="col-sm-12 text-center">
-                <a href="{{ url('promos') }}"><button class="btn btn-outline-danger @yield('promo-tab')">Promo</button></a>
-                <a href="{{ url('main-dishes') }}"><button class="btn btn-outline-danger @yield('main-dishes-tab')">Main Dishes</button></a>
-                <a href="{{ url('desserts') }}"><button class="btn btn-outline-danger @yield('desserts-tab')">Desserts</button></a>
-                <a href="{{ url('drinks') }}"><button class="btn btn-outline-danger @yield('drinks-tab')">Drinks</button></a>
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8">
+                {{-- Detail --}}
+                @yield('detail')
             </div>
-            @yield('content')
+            <div class="col-12 col-md-4">
+                {{-- Header --}}
+                <div class="card">
+                    <div class="card-body">
+                        @yield('header')
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-    {{-- Float action button --}}
-    <a href="{{ url('cart') }}">
-        <button type="button" class="btn btn-lg btn-danger float-button mr-3 mb-3">
-            <i class="material-icons">shopping_cart</i>
-        </button>
-    </a>
 </body>
 <script>
     $('.dropdown-toggle').dropdown();

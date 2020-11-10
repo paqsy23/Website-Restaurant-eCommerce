@@ -22,18 +22,35 @@ Route::get('logout', 'LoginRegisterController@logout');
 
 // Main Page
 Route::get('/', 'MainController@landing');
-Route::get('promos', 'MainController@promos');
-Route::get('promos/{page}', 'MainController@promos');
-Route::get('promos/detail/{id}', 'MainController@promoDetail');
-Route::get('main-dishes', 'MainController@main_dishes');
-Route::get('main-dishes/{page}', 'MainController@main_dishes');
-Route::get('desserts', 'MainController@desserts');
-Route::get('desserts/{page}', 'MainController@desserts');
-Route::get('drinks', 'MainController@drinks');
-Route::get('drinks/{page}', 'MainController@drinks');
+Route::group(['prefix' => 'promos'], function () {
+    Route::get('/', 'MainController@promos');
+    Route::get('{page}', 'MainController@promos');
+    Route::get('detail/{id}', 'MainController@promoDetail');
+});
+Route::group(['prefix' => 'main-dishes'], function () {
+    Route::get('/', 'MainController@main_dishes');
+    Route::get('{page}', 'MainController@main_dishes');
+    Route::get('detail/{id}', 'MainController@menuDetail');
+});
+Route::group(['prefix' => 'desserts'], function () {
+    Route::get('/', 'MainController@desserts');
+    Route::get('{page}', 'MainController@desserts');
+    Route::get('detail/{id}', 'MainController@menuDetail');
+});
+Route::group(['prefix' => 'drinks'], function () {
+    Route::get('/', 'MainController@drinks');
+    Route::get('{page}', 'MainController@drinks');
+    Route::get('detail/{id}', 'MainController@menuDetail');
+});
 
-// Makanan
+// Cart
+Route::group(['prefix' => 'cart'], function () {
+    Route::get('/', 'CartController@cart');
+    Route::post('add', 'CartController@addToCart');
+});
+
 // Admin Page
+// Makanan
 Route::get('admin', 'AdminController@adminLanding');
 Route::get('page_insertMakanan', 'AdminController@page_insertMakanan');
 Route::get('page_updateMakanan', 'AdminController@page_updateMakanan');

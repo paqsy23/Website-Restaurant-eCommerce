@@ -4,12 +4,19 @@
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\DB;
     use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cookie;
 
-    class AdminController extends Controller{
+class AdminController extends Controller{
         public function adminLanding(){
+            $user_login = json_decode(Cookie::get('user-login'));
+            if ($user_login->id_user != 'admin') return redirect('/');
+
             return view('templates.makanan');
         }
         public function page_insertMakanan(){
+            $user_login = json_decode(Cookie::get('user-login'));
+            if ($user_login->id_user != 'admin') return redirect('/');
+
             $kategori = DB::select('select * from kategori');
             return view('makanan.insertMakanan', ["kategori"=>$kategori]);
         }
@@ -50,16 +57,25 @@
             }
         }
         public function page_listMakanan(){
+            $user_login = json_decode(Cookie::get('user-login'));
+            if ($user_login->id_user != 'admin') return redirect('/');
+
             $makanan = DB::select('select * from barang, kategori where barang.id_kategori = kategori.id_kategori');
             return view('makanan.listMakanan', ['makanan'=>$makanan]);
         }
         public function editMakanan($id_barang)
         {
+            $user_login = json_decode(Cookie::get('user-login'));
+            if ($user_login->id_user != 'admin') return redirect('/');
+
             $makanan = DB::table('barang')
             ->where("id_barang", $id_barang)->first();
             return view("makanan.updateMakanan", compact("makanan"));
         }
         public function page_updateMakanan(){
+            $user_login = json_decode(Cookie::get('user-login'));
+            if ($user_login->id_user != 'admin') return redirect('/');
+
             $makanan = DB::select('select * from barang');
             return view('makanan.updateMakanan', ['makanan'=>$makanan]);
         }
@@ -94,6 +110,9 @@
 
         //Kategori
         public function page_insertKategori(){
+            $user_login = json_decode(Cookie::get('user-login'));
+            if ($user_login->id_user != 'admin') return redirect('/');
+
             return view('kategori.insertKategori');
         }
 
@@ -121,6 +140,9 @@
         }
 
         public function page_updateKategori(){
+            $user_login = json_decode(Cookie::get('user-login'));
+            if ($user_login->id_user != 'admin') return redirect('/');
+
             $kategori = DB::select('select * from kategori');
             return view('kategori.updateKategori', ["kategori" => $kategori]);
         }
@@ -141,11 +163,17 @@
 
         public function edit($id_kategori)
         {
+            $user_login = json_decode(Cookie::get('user-login'));
+            if ($user_login->id_user != 'admin') return redirect('/');
+
             $kategori = DB::table('kategori')
             ->where("id_kategori", $id_kategori)->first();
             return view("kategori.updateKategori", compact("kategori"));
         }
         public function page_listKategori(){
+            $user_login = json_decode(Cookie::get('user-login'));
+            if ($user_login->id_user != 'admin') return redirect('/');
+
             $kategori = DB::select('select * from kategori');
             return view('kategori.listKategori', ["kategori" => $kategori]);
         }
@@ -164,6 +192,9 @@
 
         //Promo
         public function page_insertPromo(){
+            $user_login = json_decode(Cookie::get('user-login'));
+            if ($user_login->id_user != 'admin') return redirect('/');
+
             return view('promo.insertPromo');
         }
         public function insertPromo(Request $request){
@@ -195,11 +226,17 @@
             }
         }
         public function page_listPromo(){
+            $user_login = json_decode(Cookie::get('user-login'));
+            if ($user_login->id_user != 'admin') return redirect('/');
+
             $promo = DB::select('select * from promo');
             return view('promo.listPromo', ["promo" => $promo]);
         }
         public function editPromo($id_promo)
         {
+            $user_login = json_decode(Cookie::get('user-login'));
+            if ($user_login->id_user != 'admin') return redirect('/');
+
             $promo = DB::table('promo')
             ->where("id_promo", $id_promo)->first();
             return view("promo.updatePromo", compact("promo"));

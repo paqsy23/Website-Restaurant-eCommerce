@@ -25,8 +25,6 @@
             border-color: #dc3545;
             color: #ffffff;
         }
-        a.stretched-link { color: black; }
-        a.stretched-link:hover { text-decoration: none; }
     </style>
 </head>
 <body>
@@ -69,14 +67,39 @@
 
     {{-- Content --}}
     <div class="container mt-5 py-4">
-        <div class="row">
-            <div class="col-sm-12 text-center">
-                <a href="{{ url('promos') }}"><button class="btn btn-outline-danger @yield('promo-tab')">Promo</button></a>
-                <a href="{{ url('main-dishes') }}"><button class="btn btn-outline-danger @yield('main-dishes-tab')">Main Dishes</button></a>
-                <a href="{{ url('desserts') }}"><button class="btn btn-outline-danger @yield('desserts-tab')">Desserts</button></a>
-                <a href="{{ url('drinks') }}"><button class="btn btn-outline-danger @yield('drinks-tab')">Drinks</button></a>
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <img src="
+                            @if ($detail_type == 'promo')
+                                {{ asset('image/sample_promo.jpg') }}
+                            @elseif ($detail_type == 'main dish')
+                                {{ asset('image/main_dish_sample.jpg') }}
+                            @elseif ($detail_type == 'dessert')
+                                {{ asset('image/dessert_sample.jpg') }}
+                            @elseif ($detail_type == 'drink')
+                                {{ asset('image/drink_sample.jpg') }}
+                            @endif
+                            " alt="" class="card-img">
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-8">
+                            <div class="card-body">
+                                <h3 class="card-title">@yield('title')</h3>
+                                <p class="card-text">
+                                    @yield('content')
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="card-footer text-center">
+                                @yield('footer')
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            @yield('content')
         </div>
     </div>
 
@@ -88,6 +111,26 @@
     </a>
 </body>
 <script>
+    $(document).ready(function () {
+        $('#qty-dec').attr('disabled', true)
+    })
+
     $('.dropdown-toggle').dropdown();
+
+    $('#qty-dec').on('click', function () {
+        $('#qty').val(parseInt($('#qty').val()) - 1)
+        $('#qty-form').val(parseInt($('#qty').val()))
+        if ($('#qty').val() == 1) {
+            $('#qty-dec').attr('disabled', true)
+        }
+    })
+
+    $('#qty-inc').on('click', function () {
+        $('#qty').val(parseInt($('#qty').val()) + 1)
+        $('#qty-form').val(parseInt($('#qty').val()))
+        if ($('#qty').val() > 1) {
+            $('#qty-dec').attr('disabled', false)
+        }
+    })
 </script>
 </html>

@@ -5,13 +5,10 @@
 @section('content')
     @foreach ($promos as $promo)
         <div class="col-6 col-md-4 col-lg-3 mt-3">
-            <div class="card" style="min-height: 26em;">
+            <div class="card" style="min-height: 25em;">
                 <img src="{{ asset('image/sample_promo.jpg') }}" alt="" class="card-img-top">
                 <div class="card-body">
-                    <h5 class="card-title">{{ $promo->nama_promo }}</h5>
-                </div>
-                <div class="card-footer">
-                    <a href="{{ url('promos/detail/'.$promo->id_promo) }}" class="text-danger">DETAIL</a>
+                    <a href="{{ url('promos/detail/'.$promo->id_promo) }}" class="stretched-link"><h5 class="card-title">{{ $promo->nama_promo }}</h5></a>
                 </div>
             </div>
         </div>

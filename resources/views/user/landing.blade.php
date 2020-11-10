@@ -14,13 +14,10 @@
 
     @foreach ($promos as $promo)
         <div class="col-6 col-md-4 col-lg-3 mt-3">
-            <div class="card" style="min-height: 26em;">
+            <div class="card" style="min-height: 25em;">
                 <img src="{{ asset('image/sample_promo.jpg') }}" alt="" class="card-img-top">
                 <div class="card-body">
-                    <h5 class="card-title">{{ $promo->nama_promo }}</h5>
-                </div>
-                <div class="card-footer">
-                    <a href="{{ url('promos/detail/'.$promo->id_promo) }}" class="text-danger">DETAIL</a>
+                    <a href="{{ url('promos/detail/'.$promo->id_promo) }}" class="stretched-link"><h5 class="card-title">{{ $promo->nama_promo }}</h5></a>
                 </div>
             </div>
         </div>
@@ -37,18 +34,13 @@
 
     @for ($i = 0; $i < 4; $i++)
         <div class="col-6 col-md-4 col-lg-3 mt-3">
-            <div class="card">
+            <div class="card" style="min-height: 25em;">
                 <img src="{{ asset('image/main_dish_sample.jpg') }}" alt="" class="card-img-top">
                 <div class="card-body">
-                    <h5 class="card-title">Menu's Title</h5>
+                    <a href="" class="stretched-link"><h5 class="card-title">Menu's Title</h5></a>
                     <p class="card-text">
-                        <span class="text-danger" style="font-weight: bold;">Rp. {{ rand(15000, 25000) }}</span><br><br>
-
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. At, cupiditate.
+                        <span class="text-danger" style="font-weight: bold;">Rp. {{ number_format(rand(15000, 25000), 0) }}</span>
                     </p>
-                </div>
-                <div class="card-footer">
-                    <a href="" class="text-danger">ADD TO CART</a>
                 </div>
             </div>
         </div>

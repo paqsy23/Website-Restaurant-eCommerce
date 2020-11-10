@@ -31,6 +31,12 @@ class LoginRegisterController extends Controller
 
         if ($request->user_login == "admin" && $request->pass_login == "admin") {
             // Admin
+            $admin = [
+                'id_user' => 'admin',
+                'nama' => 'admin',
+                'email' => 'admin@gmail.com'
+            ];
+            Cookie::queue('user-login', json_encode($admin));
             return redirect('admin');
         } else {
             // User

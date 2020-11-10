@@ -46,6 +46,8 @@ class MainController extends Controller
 
     public function promoDetail($id)
     {
+        $user_login = json_decode(Cookie::get('user-login'));
+
         // Get promo by id
         $promo = Promo::where('id_promo', $id)->first();
 
@@ -53,6 +55,8 @@ class MainController extends Controller
         $syarat = explode(', ', $promo->syarat_promo);
 
         return view('user.promo-detail', [
+            "user" => $user_login,
+            "detail_type" => "promo",
             "promo" => $promo,
             "syarat" => $syarat
         ]);
@@ -120,6 +124,20 @@ class MainController extends Controller
             "user" => $user_login,
             "drinks" => $final_drinks,
             "pagination" => $pagination
+        ]);
+    }
+
+    public function menuDetail($id)
+    {
+        $user_login = json_decode(Cookie::get('user-login'));
+
+        // Get menu by id
+        $menu = Menu::where('id_barang', $id)->first();
+
+        return view('user.menu-detail', [
+            "user" => $user_login,
+            "detail_type" => $menu->jenis,
+            "menu" => $menu
         ]);
     }
 }
