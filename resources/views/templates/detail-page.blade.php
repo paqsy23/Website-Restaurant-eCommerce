@@ -47,7 +47,7 @@
 
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav ml-auto" id="right-nav">
-                    @if (Cookie::get('user-login') == null)
+                    @if (Session::get('user-login') == null)
                         <li class="nav-item"><a class="nav-link" href="{{ url('register') }}">Sign Up</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url('login') }}">Login</a></li>
                     @else

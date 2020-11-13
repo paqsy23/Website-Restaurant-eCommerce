@@ -8,9 +8,9 @@
     {{ $menu->deskripsi }}. <br><br>
     <div class="form-group">
         <label for="">Qty:</label><br>
-        <button class="btn btn-danger" id="qty-dec" style="padding: 0.275rem 0.75rem">-</button>
+        <button class="btn btn-outline-danger" id="qty-dec" style="padding: 0.275rem 0.75rem">-</button>
         <input type="text" name="" id="qty" class="form-control text-center" value="1" style="width: 3em; display: inline-block; height: auto;">
-        <button class="btn btn-danger" id="qty-inc" style="padding: 0.275rem 0.70rem">+</button>
+        <button class="btn btn-outline-danger" id="qty-inc" style="padding: 0.275rem 0.70rem">+</button>
     </div>
 @endsection
 

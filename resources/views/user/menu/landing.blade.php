@@ -32,17 +32,29 @@
         <div class="col-sm-12 dropdown-divider"></div>
     </div>
 
-    @for ($i = 0; $i < 4; $i++)
+    @foreach ($populars as $popular)
         <div class="col-6 col-md-4 col-lg-3 mt-3">
             <div class="card" style="min-height: 25em;">
-                <img src="{{ asset('image/main_dish_sample.jpg') }}" alt="" class="card-img-top">
+                {{-- Image --}}
+                @if ($popular->jenis == 'main dish')
+                    <img src="{{ asset('image/main_dish_sample.jpg') }}" alt="" class="card-img">
+                @elseif ($popular->jenis == 'dessert')
+                    <img src="{{ asset('image/dessert_sample.jpg') }}" alt="" class="card-img">
+                @elseif ($popular->jenis == 'drink')
+                    <img src="{{ asset('image/drink_sample.jpg') }}" alt="" class="card-img">
+                @endif
                 <div class="card-body">
-                    <a href="" class="stretched-link"><h5 class="card-title">Menu's Title</h5></a>
+                    @if ($popular->jenis == 'main dish')
+                        <a href="{{ url('main-dishes/detail/'.$popular->id_barang) }}" class="stretched-link">
+                    @else
+                        <a href="{{ url($popular->jenis.'s/detail/'.$popular->id_barang) }}" class="stretched-link">
+                    @endif
+                    <h5 class="card-title">{{ $popular->nama }}</h5></a>
                     <p class="card-text">
-                        <span class="text-danger" style="font-weight: bold;">Rp. {{ number_format(rand(15000, 25000), 0) }}</span>
+                        <span class="text-danger" style="font-weight: bold;">Rp. {{ number_format($popular->harga, 0) }}</span>
                     </p>
                 </div>
             </div>
         </div>
-    @endfor
+    @endforeach
 @endsection

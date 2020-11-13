@@ -20,7 +20,7 @@
             <input type="text" name="harga_makanan" id="" class="form-control">
         </div>
         <div class="form-group">
-            <label for="berat_makanan">Berat Makanan (Kg)</label>
+            <label for="berat_makanan">Berat Makanan (gr)</label>
             <input type="text" name="berat_makanan" id="" class="form-control">
         </div>
         <div class="form-group">

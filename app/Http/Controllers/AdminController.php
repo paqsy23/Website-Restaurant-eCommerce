@@ -7,14 +7,14 @@
 use Illuminate\Support\Facades\Cookie;
 
 class AdminController extends Controller{
-        public function adminLanding(){
-            $user_login = json_decode(Cookie::get('user-login'));
+        public function adminLanding(Request $request){
+            $user_login = $request->session()->get('user-login');
             if ($user_login->id_user != 'admin') return redirect('/');
 
             return view('templates.makanan');
         }
-        public function page_insertMakanan(){
-            $user_login = json_decode(Cookie::get('user-login'));
+        public function page_insertMakanan(Request $request){
+            $user_login = $request->session()->get('user-login');
             if ($user_login->id_user != 'admin') return redirect('/');
 
             $kategori = DB::select('select * from kategori');
@@ -50,30 +50,30 @@ class AdminController extends Controller{
                 $id .= $row[0]->num;
             }
             $row = DB::table('barang')
-            ->insert(['id_barang' => $id, 'id_kategori' => $id_kategori, 'nama' => $nama_makanan, 'stock' => $stock_makanan, 'deskripsi' => $deskripsi, 'harga' => $harga_makanan, 'berat (gr)'=>$berat_makanan, 'status'=>"1", 'jenis'=>$jenis_makanan]);
+            ->insert(['id_barang' => $id, 'id_kategori' => $id_kategori, 'nama' => $nama_makanan, 'stock' => $stock_makanan, 'deskripsi' => $deskripsi, 'harga' => $harga_makanan, 'berat (gr)'=>$berat_makanan, 'click'=>"0", 'jenis'=>$jenis_makanan]);
             if ($row){
                 echo $id_kategori;
                 return redirect()->action('AdminController@page_insertMakanan');
             }
         }
-        public function page_listMakanan(){
-            $user_login = json_decode(Cookie::get('user-login'));
+        public function page_listMakanan(Request $request){
+            $user_login = $request->session()->get('user-login');
             if ($user_login->id_user != 'admin') return redirect('/');
 
             $makanan = DB::select('select * from barang, kategori where barang.id_kategori = kategori.id_kategori');
             return view('makanan.listMakanan', ['makanan'=>$makanan]);
         }
-        public function editMakanan($id_barang)
+        public function editMakanan(Request $request, $id_barang)
         {
-            $user_login = json_decode(Cookie::get('user-login'));
+            $user_login = $request->session()->get('user-login');
             if ($user_login->id_user != 'admin') return redirect('/');
 
             $makanan = DB::table('barang')
             ->where("id_barang", $id_barang)->first();
             return view("makanan.updateMakanan", compact("makanan"));
         }
-        public function page_updateMakanan(){
-            $user_login = json_decode(Cookie::get('user-login'));
+        public function page_updateMakanan(Request $request){
+            $user_login = $request->session()->get('user-login');
             if ($user_login->id_user != 'admin') return redirect('/');
 
             $makanan = DB::select('select * from barang');
@@ -109,8 +109,8 @@ class AdminController extends Controller{
 
 
         //Kategori
-        public function page_insertKategori(){
-            $user_login = json_decode(Cookie::get('user-login'));
+        public function page_insertKategori(Request $request){
+            $user_login = $request->session()->get('user-login');
             if ($user_login->id_user != 'admin') return redirect('/');
 
             return view('kategori.insertKategori');
@@ -139,8 +139,8 @@ class AdminController extends Controller{
             }
         }
 
-        public function page_updateKategori(){
-            $user_login = json_decode(Cookie::get('user-login'));
+        public function page_updateKategori(Request $request){
+            $user_login = $request->session()->get('user-login');
             if ($user_login->id_user != 'admin') return redirect('/');
 
             $kategori = DB::select('select * from kategori');
@@ -161,17 +161,17 @@ class AdminController extends Controller{
             }
         }
 
-        public function edit($id_kategori)
+        public function edit(Request $request, $id_kategori)
         {
-            $user_login = json_decode(Cookie::get('user-login'));
+            $user_login = $request->session()->get('user-login');
             if ($user_login->id_user != 'admin') return redirect('/');
 
             $kategori = DB::table('kategori')
             ->where("id_kategori", $id_kategori)->first();
             return view("kategori.updateKategori", compact("kategori"));
         }
-        public function page_listKategori(){
-            $user_login = json_decode(Cookie::get('user-login'));
+        public function page_listKategori(Request $request){
+            $user_login = $request->session()->get('user-login');
             if ($user_login->id_user != 'admin') return redirect('/');
 
             $kategori = DB::select('select * from kategori');
@@ -191,8 +191,8 @@ class AdminController extends Controller{
         }
 
         //Promo
-        public function page_insertPromo(){
-            $user_login = json_decode(Cookie::get('user-login'));
+        public function page_insertPromo(Request $request){
+            $user_login = $request->session()->get('user-login');
             if ($user_login->id_user != 'admin') return redirect('/');
 
             return view('promo.insertPromo');
@@ -202,12 +202,19 @@ class AdminController extends Controller{
                 'nama_promo' => 'required',
                 'potongan_harga' => 'required',
                 'detail' => 'required',
-                'syarat_promo' => 'required'
+                'syarat_promo' => 'required',
+                'kategori_promo' => 'required',
+                'minimal_transaksi' => 'required'
             ]);
             $nama_promo = $request->input('nama_promo');
             $potongan_harga = $request->input('potongan_harga');
             $detail = $request->input('detail');
             $syarat_promo = $request->input('syarat_promo');
+            $minimal_transaksi = $request->input('minimal_transaksi');
+            $kategori_promo = $request->input('kategori_promo');
+            if ($kategori_promo != "new user") {
+                $kategori_promo = $request->input('jenis_kategori');
+            }
             $id = "PR";
             $row = DB::select('select nvl(max(substr(id_promo,3,3)),0) + 1 as num from promo where substr(id_promo, 1, 2) = ?', [$id]);
             if ($row[0]->num < 10) {
@@ -220,21 +227,21 @@ class AdminController extends Controller{
                 $id .= $row[0]->num;
             }
             $row = DB::table('promo')
-            ->insert(['id_promo' => $id, 'nama_promo' => $nama_promo, 'potongan_harga' => $potongan_harga, 'detail' => $detail, 'syarat_promo' => $syarat_promo]);
+            ->insert(['id_promo' => $id, 'nama_promo' => $nama_promo, 'potongan_harga' => $potongan_harga, 'detail' => $detail, 'syarat_promo' => $syarat_promo, 'kategori_promo' => $kategori_promo, 'minimal' => $minimal_transaksi]);
             if ($row){
                 return redirect()->action('AdminController@page_insertPromo');
             }
         }
-        public function page_listPromo(){
-            $user_login = json_decode(Cookie::get('user-login'));
+        public function page_listPromo(Request $request){
+            $user_login = $request->session()->get('user-login');
             if ($user_login->id_user != 'admin') return redirect('/');
 
             $promo = DB::select('select * from promo');
             return view('promo.listPromo', ["promo" => $promo]);
         }
-        public function editPromo($id_promo)
+        public function editPromo(Request $request, $id_promo)
         {
-            $user_login = json_decode(Cookie::get('user-login'));
+            $user_login = $request->session()->get('user-login');
             if ($user_login->id_user != 'admin') return redirect('/');
 
             $promo = DB::table('promo')

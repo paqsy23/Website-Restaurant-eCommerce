@@ -31,12 +31,12 @@ class LoginRegisterController extends Controller
 
         if ($request->user_login == "admin" && $request->pass_login == "admin") {
             // Admin
-            $admin = [
+            $admin = (object)[
                 'id_user' => 'admin',
                 'nama' => 'admin',
                 'email' => 'admin@gmail.com'
             ];
-            Cookie::queue('user-login', json_encode($admin));
+            $request->session()->put('user-login', $admin);
             return redirect('admin');
         } else {
             // User
@@ -46,7 +46,7 @@ class LoginRegisterController extends Controller
                     // Check username / email
                     if (password_verify($request->pass_login, $user->password)) {
                         // Password matched
-                        Cookie::queue('user-login', json_encode($user));
+                        $request->session()->put('user-login', $user);
                         return redirect('/');
                     } else {
                         return redirect("login")->with([
@@ -92,9 +92,9 @@ class LoginRegisterController extends Controller
         ]);
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        $cookie = Cookie::forget('user-login');
-        return redirect('/')->withCookie($cookie);
+        $request->session()->forget('user-login');
+        return redirect('/');
     }
 }

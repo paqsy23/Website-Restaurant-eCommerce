@@ -47,6 +47,9 @@ Route::group(['prefix' => 'drinks'], function () {
 Route::group(['prefix' => 'cart'], function () {
     Route::get('/', 'CartController@cart');
     Route::post('add', 'CartController@addToCart');
+    Route::post('delete', 'CartController@deleteItem');
+    Route::get('inc/{id}', 'CartController@increaseCart');
+    Route::get('dec/{id}', 'CartController@decreaseCart');
 });
 
 // Admin Page
