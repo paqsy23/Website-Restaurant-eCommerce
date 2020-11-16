@@ -38,7 +38,7 @@
             </div>
 
             {{-- <div class="flex-grow-1 d-flex"> --}}
-                <form action="{{ url('search') }}" method="get" class="form-inline flex-grow-1 d-flex mx-0 mx-lg-auto p-1">
+            <form action="{{ url('search') }}" method="get" class="form-inline flex-grow-1 d-flex mx-0 mx-lg-auto p-1">
                     <input type="text" name="name" id="" class="form-control flex-grow-1" placeholder="Search">
                 </form>
             {{-- </div> --}}

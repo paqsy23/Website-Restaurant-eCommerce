@@ -42,6 +42,7 @@ Route::group(['prefix' => 'drinks'], function () {
     Route::get('{page}', 'MainController@drinks');
     Route::get('detail/{id}', 'MainController@menuDetail');
 });
+Route::get('search', 'MainController@search');
 
 // Cart
 Route::group(['prefix' => 'cart'], function () {
