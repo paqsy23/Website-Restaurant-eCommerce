@@ -21,10 +21,14 @@ USE `dbecommerce`;
 DROP TABLE IF EXISTS `alamat`;
 
 CREATE TABLE `alamat` (
-  `id_user` varchar(8) NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_user` varchar(8) DEFAULT NULL,
   `kota` varchar(8) NOT NULL,
   `jalan` varchar(255) NOT NULL,
   `kodepos` int(10) NOT NULL,
+  `penerima` varchar(255) NOT NULL,
+  `telp` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`),
   KEY `kota` (`kota`),
   CONSTRAINT `alamat_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`),
@@ -46,7 +50,7 @@ CREATE TABLE `barang` (
   `deskripsi` varchar(500) NOT NULL,
   `harga` int(10) NOT NULL,
   `berat (gr)` int(10) NOT NULL,
-  `status` int(4) NOT NULL,
+  `click` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_barang`),
   KEY `id_kategori` (`id_kategori`),
   CONSTRAINT `barang_ibfk_1` FOREIGN KEY (`id_kategori`) REFERENCES `kategori` (`id_kategori`)
@@ -54,70 +58,77 @@ CREATE TABLE `barang` (
 
 /*Data for the table `barang` */
 
-insert  into `barang`(`id_barang`,`id_kategori`,`nama`,`stock`,`jenis`,`deskripsi`,`harga`,`berat (gr)`,`status`) values 
-('MA001','KA001','Coca-Cola',64,'drink','Minuman Bersoda Coca Cola',7500,400,1),
-('MA002','KA001','Fanta Strawberry',20,'drink','Minuman Bersoda Rasa strawberry',7500,400,1),
-('MA003','KA001','Fanta grape',20,'drink','Minuman Bersoda rasa Anggur',7500,400,1),
-('MA004','KA001','Fanta Orange',20,'drink','Minuman Bersoda rasa jeruk',7500,400,1),
-('MA005','KA001','Ramune Melon',30,'drink','Minuman Bersoda rasa Melon dengan sensasi jejepangan',20500,400,1),
-('MA006','KA001','Ramune Lemon',24,'drink','Minuman Bersoda rasa Lemon dengan sensasi jejepangan',20500,400,1),
+insert  into `barang`(`id_barang`,`id_kategori`,`nama`,`stock`,`jenis`,`deskripsi`,`harga`,`berat (gr)`,`click`) values 
+('MA001','KA001','Coca-Cola',64,'drink','Minuman Bersoda Coca Cola',7500,400,5),
+('MA002','KA001','Fanta Strawberry',20,'drink','Minuman Bersoda Rasa strawberry',7500,400,2),
+('MA003','KA001','Fanta grape',20,'drink','Minuman Bersoda rasa Anggur',7500,400,3),
+('MA004','KA001','Fanta Orange',20,'drink','Minuman Bersoda rasa jeruk',7500,400,4),
+('MA005','KA001','Ramune Melon',30,'drink','Minuman Bersoda rasa Melon dengan sensasi jejepangan',20500,400,6),
+('MA006','KA001','Ramune Lemon',24,'drink','Minuman Bersoda rasa Lemon dengan sensasi jejepangan',20500,400,8),
 ('MA007','KA001','Ramune Sakura',36,'drink','Minuman Bersoda rasa Bunga Sakura dengan sensasi jejepangan',20500,400,1),
-('MA008','KA001','Pepsi',24,'drink','Minuman Bersoda Pepsi Original',6500,550,1),
-('MA009','KA001','Pepsi Blue',24,'drink','Minuman Bersoda Pepsi Blue',6500,550,1),
-('MA010','KA002','Aqua 330ml',48,'drink','Air mineral Aqua dengan ukuran 240ml',1000,240,1),
-('MA011','KA002','Aqua 500ml',48,'drink','Air mineral Aqua dengan ukuran 330ml',1500,330,1),
-('MA012','KA002','Aqua 1000ml',48,'drink','Air mineral Aqua dengan ukuran 500ml',3500,500,1),
-('MA013','KA002','Aqua 1500ml',48,'drink','Air mineral Aqua dengan ukuran 1000ml',6500,1000,1),
+('MA008','KA001','Pepsi',24,'drink','Minuman Bersoda Pepsi Original',6500,550,7),
+('MA009','KA001','Pepsi Blue',24,'drink','Minuman Bersoda Pepsi Blue',6500,550,3),
+('MA010','KA002','Aqua 330ml',48,'drink','Air mineral Aqua dengan ukuran 240ml',1000,240,5),
+('MA011','KA002','Aqua 500ml',48,'drink','Air mineral Aqua dengan ukuran 330ml',1500,330,10),
+('MA012','KA002','Aqua 1000ml',48,'drink','Air mineral Aqua dengan ukuran 500ml',3500,500,3),
+('MA013','KA002','Aqua 1500ml',48,'drink','Air mineral Aqua dengan ukuran 1000ml',6500,1000,0),
 ('MA014','KA002','Aqua 240ml',60,'drink','Air mineral Aqua dengan ukuran 1500ml',9500,1500,1),
-('MA015','KA003','Avocado Juice',60,'drink','Jus Alpukat dengan topping susu coklat nikmat',15500,500,1),
-('MA016','KA003','Apple juice',60,'drink','Jus Apel asli dengan campuran susu dan gula yang nikmat',15500,500,1),
+('MA015','KA003','Avocado Juice',60,'drink','Jus Alpukat dengan topping susu coklat nikmat',15500,500,3),
+('MA016','KA003','Apple juice',60,'drink','Jus Apel asli dengan campuran susu dan gula yang nikmat',15500,500,4),
 ('MA017','KA003','Orange Juice',60,'drink','Jus Jeruk yang segar',14000,500,1),
-('MA018','KA003','Melon Juice',60,'drink','Jus Melon yang segar dipadukan dengan susu yang nikmat',14000,500,1),
-('MA019','KA003','Dragonfruit Juice',60,'drink','Jus  Buah Naga yang segar dipadukan dengan susu yang nikmat',14000,500,1),
-('MA020','KA003','Durian Juice',60,'drink','Jus Durian yang nikmat diminum kapanpun',18000,500,1),
-('MA021','KA004','Cheese Cake',36,'dessert','Ini adalah itu',20000,500,1),
-('MA022','KA004','Choco Lava',36,'dessert','Ini adalah itu',20000,500,1),
-('MA023','KA004','Strawberry Cheese Cake',36,'dessert','Ini adalah itu',0,500,1),
-('MA024','KA004','Salad',36,'dessert','Ini adalah itu',22000,500,1),
-('MA025','KA004','Sour Salad with Cotton Candy',36,'dessert','Ini adalah itu',29000,500,1),
+('MA018','KA003','Melon Juice',60,'drink','Jus Melon yang segar dipadukan dengan susu yang nikmat',14000,500,6),
+('MA019','KA003','Dragonfruit Juice',60,'drink','Jus  Buah Naga yang segar dipadukan dengan susu yang nikmat',14000,500,9),
+('MA020','KA003','Durian Juice',60,'drink','Jus Durian yang nikmat diminum kapanpun',18000,500,8),
+('MA021','KA004','Cheese Cake',36,'dessert','Ini adalah itu',20000,500,3),
+('MA022','KA004','Choco Lava',36,'dessert','Ini adalah itu',20000,500,9),
+('MA023','KA004','Strawberry Cheese Cake',36,'dessert','Ini adalah itu',0,500,6),
+('MA024','KA004','Salad',36,'dessert','Ini adalah itu',22000,500,2),
+('MA025','KA004','Sour Salad with Cotton Candy',36,'dessert','Ini adalah itu',29000,500,5),
 ('MA026','KA004','Sweet Bird Nest',36,'dessert','Ini adalah itu',45000,500,1),
-('MA027','KA005','Sweet And Sour Pudding With Berries',36,'dessert','Ini adalah itu',30000,500,1),
-('MA028','KA005','Chocolate Pudding',36,'dessert','Ini adalah itu',20000,500,1),
-('MA029','KA005','Triple PUDIDI',36,'dessert','Ini adalah itu',25000,500,1),
-('MA030','KA005','PUDIDI With Vegies',36,'dessert','Ini adalah itu',30000,500,1),
-('MA031','KA005','Rainbow Fruit PUDIDI',36,'dessert','Ini adalah itu',35000,500,1),
-('MA032','KA006','Beef Sirloin Steak',36,'main dish','Ini adalah itu',99000,500,1),
-('MA033','KA006','Beef Tenderloin Steak',36,'main dish','Ini adalah itu',99000,500,1),
+('MA027','KA005','Sweet And Sour Pudding With Berries',36,'dessert','Ini adalah itu',30000,500,7),
+('MA028','KA005','Chocolate Pudding',36,'dessert','Ini adalah itu',20000,500,8),
+('MA029','KA005','Triple PUDIDI',36,'dessert','Ini adalah itu',25000,500,4),
+('MA030','KA005','PUDIDI With Vegies',36,'dessert','Ini adalah itu',30000,500,5),
+('MA031','KA005','Rainbow Fruit PUDIDI',36,'dessert','Ini adalah itu',35000,500,13),
+('MA032','KA006','Beef Sirloin Steak',36,'main dish','Ini adalah itu',99000,500,11),
+('MA033','KA006','Beef Tenderloin Steak',36,'main dish','Ini adalah itu',99000,500,4),
 ('MA034','KA006','Rib Eye',36,'main dish','Ini adalah itu',120000,500,1),
-('MA035','KA006','Premium A5 Sirloin Steak',36,'main dish','Ini adalah itu',125000,500,1),
-('MA036','KA006','Premium A5 Tenderloin Steak',36,'main dish','Ini adalah itu',125000,500,1),
-('MA037','KA006','Premium A5 Rib Eye',36,'main dish','Ini adalah itu',175000,500,1),
-('MA038','KA006','Beef with Black Pepper Sauce ',36,'main dish','Ini adalah itu',50000,500,1),
-('MA039','KA007','Ayam Saus Mentega',36,'main dish','Ini adalah itu',35000,500,1),
-('MA040','KA007','Chicken Kaarage',36,'main dish','Ini adalah itu',40000,500,1),
-('MA041','KA007','Chicken Yakiniku',36,'main dish','Ini adalah itu',40000,500,1),
-('MA042','KA007','Crispy Chicken',36,'main dish','Ini adalah itu',35000,500,1),
+('MA035','KA006','Premium A5 Sirloin Steak',36,'main dish','Ini adalah itu',125000,500,8),
+('MA036','KA006','Premium A5 Tenderloin Steak',36,'main dish','Ini adalah itu',125000,500,7),
+('MA037','KA006','Premium A5 Rib Eye',36,'main dish','Ini adalah itu',175000,500,3),
+('MA038','KA006','Beef with Black Pepper Sauce ',36,'main dish','Ini adalah itu',50000,500,5),
+('MA039','KA007','Ayam Saus Mentega',36,'main dish','Ini adalah itu',35000,500,2),
+('MA040','KA007','Chicken Kaarage',36,'main dish','Ini adalah itu',40000,500,7),
+('MA041','KA007','Chicken Yakiniku',36,'main dish','Ini adalah itu',40000,500,5),
+('MA042','KA007','Crispy Chicken',36,'main dish','Ini adalah itu',35000,500,9),
 ('MA043','KA007','Grilled Chicken',36,'main dish','Ini adalah itu',40000,500,1),
-('MA044','KA008','Chiken Ramen',36,'main dish','Ini adalah itu',50000,500,1),
-('MA045','KA008','Beef Ramen',36,'main dish','Ini adalah itu',60000,500,1),
-('MA046','KA008','Pangsit Mie Ayam',36,'main dish','Ini adalah itu',25000,500,1),
-('MA047','KA008','Pangsit Mie Bakso',36,'main dish','Ini adalah itu',30000,500,1),
-('MA048','KA008','Mie Ayam biasa',36,'main dish','Ini adalah itu',17500,500,1),
-('MA049','KA008','Kwetiau Goreng',36,'main dish','Ini adalah itu',30000,500,1),
-('MA050','KA007','Kwetiau Siram',36,'main dish','Ini adalah itu',30000,500,1);
+('MA044','KA008','Chiken Ramen',36,'main dish','Ini adalah itu',50000,500,4),
+('MA045','KA008','Beef Ramen',36,'main dish','Ini adalah itu',60000,500,2),
+('MA046','KA008','Pangsit Mie Ayam',36,'main dish','Ini adalah itu',25000,500,4),
+('MA047','KA008','Pangsit Mie Bakso',36,'main dish','Ini adalah itu',30000,500,6),
+('MA048','KA008','Mie Ayam biasa',36,'main dish','Ini adalah itu',17500,500,7),
+('MA049','KA008','Kwetiau Goreng',36,'main dish','Ini adalah itu',30000,500,3),
+('MA050','KA007','Kwetiau Siram',36,'main dish','Ini adalah itu',30000,500,8),
+('MA051','KA008','Indomie Goreng + Telur',100,'main dish','Hanya mie instan dengan telur',15000,200,7);
 
 /*Table structure for table `cart` */
 
 DROP TABLE IF EXISTS `cart`;
 
 CREATE TABLE `cart` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_user` varchar(8) NOT NULL,
   `id_barang` varchar(8) NOT NULL,
   `quantity` int(10) NOT NULL,
-  `pesan` varchar(500) NOT NULL,
+  `pesan` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`id`),
   KEY `id_barang` (`id_barang`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 /*Data for the table `cart` */
+
+insert  into `cart`(`id`,`id_user`,`id_barang`,`quantity`,`pesan`) values 
+(3,'paqsy','MA035',7,NULL);
 
 /*Table structure for table `chat` */
 
@@ -261,18 +272,21 @@ CREATE TABLE `promo` (
   `potongan_harga` int(10) NOT NULL,
   `detail` varchar(255) NOT NULL,
   `syarat_promo` varchar(255) NOT NULL,
+  `kategori_promo` varchar(255) NOT NULL,
+  `minimal` int(11) NOT NULL,
   PRIMARY KEY (`id_promo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `promo` */
 
-insert  into `promo`(`id_promo`,`nama_promo`,`potongan_harga`,`detail`,`syarat_promo`) values 
-('PR001','Diskon 20% untuk Pengguna Baru',20,'Pengguna yang baru mendaftarkan diri akan dapat diskon sebesar 20% untuk 2x pemesanan. Minimal pembelian Rp30rb.','Minimal pembelian Rp 30.000, Berlaku untuk 2x pemesanan, Hanya berlaku di Surabaya, Promo berlaku untuk harga sebelum pajak'),
-('PR002','Diskon Murah Meriah 40%',40,'Nikmati diskon sebesar 40% untuk minimal pembelian Rp55rb!','Minimal pembelian Rp 55.000, Berlaku untuk 1x pemesanan, Hanya berlaku di Surabaya, Promo berlaku untuk harga sebelum pajak'),
-('PR003','Diskon Membahana 50%',50,'Nikmati diskon membahana sebesar 50% untuk minimal pembelian seharga Rp100rb!','Minimal pembelian Rp100.000, Berlaku untuk 1x pemesanan, Hanya berlaku di Surabaya, Promo berlaku untuk harga sebelum pajak'),
-('PR004','Potongan Ongkir 50%',50,'Nikmati potongan Ongkos Kirim sebesar 50% untuk daerah Suarabaya!','Berlaku untuk 2x pemesanan, Hanya berlaku di Surabaya, Promo berlaku untuk harga sebelum pajak'),
-('PR005','Promo Gratis Ongkir',100,'Nikmati Bayar Ongkir GRATIS untuk pemesanan di daerah Surabaya!','Berlaku untuk 1x pemesanan, Hanya berlaku di Surabaya, Promo berlaku untuk harga sebelum pajak'),
-('PR006','Promo Kejut Rayakan Halloween',45,'Dalam rangka Halloween, Rasakan Potongan Harga Mengejutkan sebesar 45% untuk minimal pembelian seharga Rp70rb!','Minimal pembelian Rp70.000, Berlaku untuk 1x pemesanan, Hanya berlaku di Surabaya, Promo berlaku untuk harga sebelum pajak');
+insert  into `promo`(`id_promo`,`nama_promo`,`potongan_harga`,`detail`,`syarat_promo`,`kategori_promo`,`minimal`) values 
+('PR001','Diskon 20% untuk Pengguna Baru',20,'Pengguna yang baru mendaftarkan diri akan dapat diskon sebesar 20% untuk 2x pemesanan. Minimal pembelian Rp30rb.','Minimal pembelian Rp 30.000, Berlaku untuk pengguna baru','new user',30000),
+('PR002','Diskon Murah Meriah 40%',40,'Nikmati diskon sebesar 40% untuk minimal pembelian Rp55rb!','Minimal pembelian Rp 55.000, Berlaku untuk semua jenis menu','all',55000),
+('PR003','Diskon Membahana 50%',50,'Nikmati diskon membahana sebesar 50% untuk minimal pembelian seharga Rp100rb!','Minimal pembelian Rp 100.000, Berlaku untuk semua jenis menu','all',100000),
+('PR004','Promo Kejut Rayakan Halloween',45,'Dalam rangka Halloween, Rasakan Potongan Harga Mengejutkan sebesar 45% untuk minimal pembelian seharga Rp70rb!','Minimal pembelian Rp 70.000, Berlaku untuk semua jenis menu','all',70000),
+('PR005','Diskon Dessert 20%',20,'Ini diskon untuk dessert saja','Minimal pembelian Rp 15.000, Hanya untuk jenis makanan dessert saja','dessert',15000),
+('PR006','Promo Hari Pahlawan',50,'Nikmati hari pahlawan dengan makanan yang berlimpah dengan diskon 50% khusus menu main dish apa saja!','Minimal pembelian Rp 30.000, Berlaku untuk menu main dish saja','main dish',30000),
+('PR007','Promo 50% Semua Makanan Khusus Pengguna Baru',50,'Nikmati diskon 50% untuk semua jenis makanan, khusus pengguna baru','Minimal pembelian Rp 20.000, berlaku untuk semua jenis makanan','new user',20000);
 
 /*Table structure for table `provinsi` */
 

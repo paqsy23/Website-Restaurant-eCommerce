@@ -65,11 +65,16 @@ class CartController extends Controller
         $user_login = $request->session()->get('user-login');
 
         $userCart = [];
+        $totalHarga = 0;
 
         if ($user_login == null) {
             // Guest
             $userCart = $request->session()->get('carts');
             if ($userCart == null) $userCart = [];
+
+            foreach ($userCart as $cart) {
+                $totalHarga += $cart->subtotal;
+            }
         } else {
             // Registered User
             $carts = Cart::where('id_user', $user_login->id_user)->get();
@@ -87,6 +92,8 @@ class CartController extends Controller
                     'pesan' => $cart->pesan,
                     'subtotal' => $menu->harga * $cart->quantity
                 ];
+
+                $totalHarga += $menu->harga * $cart->quantity;
             }
         }
 
@@ -96,7 +103,8 @@ class CartController extends Controller
         return view('user.cart.main', [
             'user' => $user_login,
             'carts' => $userCart,
-            'populars' => $popular
+            'populars' => $popular,
+            'totalHarga' => $totalHarga
         ]);
     }
 

@@ -29,6 +29,35 @@
         .del-btn:hover { cursor: pointer; }
         a.stretched-link { color: black; }
         a.stretched-link:hover { text-decoration: none; }
+        .swal2-confirm.swal2-styled {
+            color: #fff;
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+        .swal2-confirm.swal2-styled:hover {
+            color: #fff;
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+        .swal2-confirm.swal2-styled:focus {
+            color: #fff;
+            background-color: #c82333;
+            border-color: #bd2130;
+            box-shadow: 0 0 0 0.2rem rgba(225, 83, 97, 0.5);
+        }
+        .swal2-deny.swal2-styled {
+            color: #dc3545;
+            background-color: #fff;
+            border-color: #dc3545;
+        }
+        .swal2-deny.swal2-styled:hover {
+            color: #fff;
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+        .swal2-deny.swal2-styled:focus {
+            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);
+        }
     </style>
 </head>
 <body>
@@ -79,11 +108,7 @@
                 </div>
                 <div class="col-md-12 col-lg-4">
                     {{-- Header --}}
-                    <div class="card">
-                        <div class="card-body">
-                            @yield('header')
-                        </div>
-                    </div>
+                    @yield('header')
                 </div>
             @else
                 <div class="col-12 mt-5 mb-5 text-center">
@@ -170,7 +195,9 @@
             text: 'Apakah anda yakin menghapus menu ini?',
             showDenyButton: true,
             confirmButtonText: 'Hapus Menu',
-            denyButtonText: 'Kembali'
+            denyButtonText: 'Kembali',
+            focusConfirm: false,
+            focusDeny: true
         }).then((result) => {
             if (result.isConfirmed) {
                 $.post(
