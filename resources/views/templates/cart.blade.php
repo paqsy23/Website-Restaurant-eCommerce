@@ -27,8 +27,12 @@
             color: #ffffff;
         }
         .del-btn:hover { cursor: pointer; }
+
+        /* Navbar */
         a.stretched-link { color: black; }
         a.stretched-link:hover { text-decoration: none; }
+
+        /* Sweet Alert */
         .swal2-confirm.swal2-styled {
             color: #fff;
             background-color: #dc3545;
@@ -58,6 +62,15 @@
         .swal2-deny.swal2-styled:focus {
             box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);
         }
+
+        .btn-outline-dark:hover {
+            color: #6c757d;
+            border: 1px solid #6c757d;
+            background-color: transparent;
+        }
+
+        a.stretched-link { color: black; }
+        a.stretched-link:hover { text-decoration: none; }
     </style>
 </head>
 <body>
@@ -101,61 +114,43 @@
     {{-- Content --}}
     <div class="container mt-5 py-4">
         <div class="row">
-            @if (count($carts) > 0)
-                <div class="col-md-12 col-lg-8 mb-3">
-                    {{-- Detail --}}
-                    @yield('detail')
-                </div>
-                <div class="col-md-12 col-lg-4">
-                    {{-- Header --}}
-                    @yield('header')
-                </div>
-            @else
-                <div class="col-12 mt-5 mb-5 text-center">
-                    <h2>Keranjang kosong, nih</h2>
-                    <p>Daripada dibiarin kosong, mending order menu yuk buat ilangin laper XD</p>
-                    <a href="{{ url('/') }}"><button class="btn btn-danger w-25">Mulai Belanja</button></a>
-                </div>
-            @endif
+            @yield('content')
+        </div>
 
-            {{-- Popular Menus --}}
-            <div class="col-sm-12 row d-flex h-50 mt-4">
-                <div class="col-sm-6">
-                    <h3>Most Popular Menus</h3>
-                </div>
-                <div class="col-sm-12 dropdown-divider"></div>
-            </div>
+        {{-- Address --}}
+        <div class="modal fade" id="list-address">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="modal-title"><h5 id="modal-title">Pilih Alamat Pengiriman</h5></div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="list-address-body">
 
-            @foreach ($populars as $popular)
-                <div class="col-6 col-md-4 col-lg-3 mt-3">
-                    <div class="card" style="min-height: 25em;">
-                        {{-- Image --}}
-                        @if ($popular->jenis == 'main dish')
-                            <img src="{{ asset('image/main_dish_sample.jpg') }}" alt="" class="card-img">
-                        @elseif ($popular->jenis == 'dessert')
-                            <img src="{{ asset('image/dessert_sample.jpg') }}" alt="" class="card-img">
-                        @elseif ($popular->jenis == 'drink')
-                            <img src="{{ asset('image/drink_sample.jpg') }}" alt="" class="card-img">
-                        @endif
-                        <div class="card-body">
-                            @if ($popular->jenis == 'main dish')
-                                <a href="{{ url('main-dishes/detail/'.$popular->id_barang) }}" class="stretched-link">
-                            @else
-                                <a href="{{ url($popular->jenis.'s/detail/'.$popular->id_barang) }}" class="stretched-link">
-                            @endif
-                            <h5 class="card-title">{{ $popular->nama }}</h5></a>
-                            <p class="card-text">
-                                <span class="text-danger" style="font-weight: bold;">Rp. {{ number_format($popular->harga, 0) }}</span>
-                            </p>
-                        </div>
                     </div>
                 </div>
-            @endforeach
+            </div>
         </div>
     </div>
 </body>
 <script>
     $('.dropdown-toggle').dropdown();
+
+    $('#promo').change(function() {
+        var selected = $('#promo :selected').val()
+        var total = parseInt($('#nominal').attr('total'))
+        if (selected == "") {
+            $('#promo-detail').css('display', 'none')
+            $('#total').html("Rp. " + (total + 15000).toLocaleString('en'))
+        } else {
+            var promo = total * parseInt(selected) / 100
+            $('#promo-detail').css('display', 'block')
+            $('#nominal').html("- Rp. " + (promo).toLocaleString('en'))
+            $('#total').html("Rp. " + (total + 15000 - promo).toLocaleString('en'))
+        }
+    })
 
     function decQty(e) {
         var id = $(e).attr('id_menu')
@@ -212,6 +207,112 @@
                 )
             }
         })
+    }
+
+    function showAddresses(e) {
+        $.get(
+            $(e).attr('target'),
+            {},
+            function (result) {
+                $('#list-address-body').html(result)
+                $('#list-address').modal('show')
+
+            }
+        )
+    }
+
+    function setAddress(e) {
+        $.get(
+            $(e).attr('target'),
+            {},
+            function (result) {
+                window.location = $(e).attr('move')
+            }
+        )
+    }
+
+    function showForm(e) {
+        $.get(
+            $(e).attr('target'),
+            {},
+            function (result) {
+                if ($(e).attr('type-data') == 'new') {
+                    $('#modal-title').html('Tambah Alamat Baru')
+                } else {
+                    $('#modal-title').html('Ubah Alamat')
+                }
+                $('#list-address-body').html(result)
+            }
+        )
+    }
+
+    function cancelEdit(e) {
+        $.get(
+            $(e).attr('target'),
+            {},
+            function (result) {
+                $('#list-address-body').html(result)
+
+            }
+        )
+    }
+
+    function approveEdit(e) {
+        var checkInput = true
+        var token = $('#token').val()
+        var penerima = $('#form-penerima').val()
+        var telp = $('#form-telp').val()
+        var alamat = $('#form-alamat').val()
+        var kodepos = $('#form-kodepos').val()
+        var kota = $('#form-kota :selected').val()
+
+        if (penerima == "") {
+            checkInput = false
+            $('#error-penerima').css('display', 'block')
+        } else $('#error-penerima').css('display', 'none')
+        if (telp == "") {
+            checkInput = false
+            $('#error-telp').css('display', 'block')
+        } else $('#error-telp').css('display', 'none')
+        if (alamat == "") {
+            checkInput = false
+            $('#error-alamat').css('display', 'block')
+        } else $('#error-alamat').css('display', 'none')
+        if (kodepos == "") {
+            checkInput = false
+            $('#error-kodepos').css('display', 'block')
+        } else $('#error-kodepos').css('display', 'none')
+        if (kota == "") {
+            checkInput = false
+            $('#error-kota').css('display', 'block')
+        } else $('#error-kota').css('display', 'none')
+
+        if (checkInput) {
+            $.post(
+                $(e).attr('target'),
+                {
+                    '_token' : token,
+                    'penerima' : penerima,
+                    'telp' : telp,
+                    'alamat' : alamat,
+                    'kodepos' : kodepos,
+                    'kota' : kota
+                },
+                function (result) {
+                    if (result == 'ok') {
+                        $.get(
+                            $(e).attr('move'),
+                            {},
+                            function (result) {
+                                $('#list-address-body').html(result)
+
+                            }
+                        )
+                    }
+
+                }
+            )
+        }
     }
 </script>
 </html>

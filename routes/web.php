@@ -52,6 +52,14 @@ Route::group(['prefix' => 'cart'], function () {
     Route::get('dec/{id}', 'CartController@decreaseCart');
 });
 
+// Address
+Route::group(['prefix' => 'address'], function () {
+    Route::get('/', 'AddressController@listAddresses');
+    Route::get('set/{id}', 'AddressController@setActive');
+    Route::get('show-form/{id}', 'AddressController@showForm');
+    Route::post('edit/{id}', 'AddressController@editAddress');
+});
+
 // Admin Page
 // Makanan
 Route::get('admin', 'AdminController@adminLanding');

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Models\Address;
 use App\Models\Models\Cart;
 use App\Models\Models\Menu;
+use App\Models\Models\Promo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 
@@ -65,7 +67,9 @@ class CartController extends Controller
         $user_login = $request->session()->get('user-login');
 
         $userCart = [];
+        $promo = [];
         $totalHarga = 0;
+        $address = null;
 
         if ($user_login == null) {
             // Guest
@@ -75,11 +79,21 @@ class CartController extends Controller
             foreach ($userCart as $cart) {
                 $totalHarga += $cart->subtotal;
             }
+
+            // Get Address
+            $allAddress = $request->session()->get('address');
+
+            foreach ($allAddress as $item) {
+                if ($item->status == 1) {
+                    $address = $item;
+                }
+            }
         } else {
             // Registered User
             $carts = Cart::where('id_user', $user_login->id_user)->get();
 
             $userCart = [];
+            $jenis = "";
             foreach ($carts as $cart) {
                 $menu = Menu::find($cart->id_barang);
 
@@ -94,7 +108,23 @@ class CartController extends Controller
                 ];
 
                 $totalHarga += $menu->harga * $cart->quantity;
+
+                if ($jenis == "") {
+                    $jenis = $menu->jenis;
+                } else if ($jenis != $menu->jenis) {
+                    $jenis = null;
+                }
             }
+
+            // Get Available Promos
+            $promo = Promo::where('kategori_promo', 'all');
+            if ($jenis != null) {
+                $promo = $promo->orWhere('kategori_promo', $jenis);
+            }
+            $promo = $promo->get();
+
+            // Get Active Address
+            $address = Address::where('status', 1)->where('id_user', $user_login->id_user)->first();
         }
 
         // Get most popular
@@ -104,7 +134,9 @@ class CartController extends Controller
             'user' => $user_login,
             'carts' => $userCart,
             'populars' => $popular,
-            'totalHarga' => $totalHarga
+            'totalHarga' => $totalHarga,
+            'promos' => $promo,
+            'address' => $address
         ]);
     }
 
