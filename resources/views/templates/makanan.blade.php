@@ -35,6 +35,7 @@
             {{-- Navigation Menu --}}
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav ml-auto" id="right-nav">
+                    <li class="nav-item"><a class="nav-link" href="{{ url('chat') }}">Chat</a></li>
                     {{-- Barang --}}
                     <li class="nav-item dropdown">
                         <a href="" class="nav-link dropdown-toggle" id="menu-dropdown" data-toggle="dropdown">Barang</a>

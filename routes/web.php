@@ -42,6 +42,7 @@ Route::group(['prefix' => 'drinks'], function () {
     Route::get('{page}', 'MainController@drinks');
     Route::get('detail/{id}', 'MainController@menuDetail');
 });
+Route::get('search', 'MainController@search');
 
 // Cart
 Route::group(['prefix' => 'cart'], function () {
@@ -89,3 +90,10 @@ Route::get('page_updatePromo', 'AdminController@page_updatePromo');
 Route::get('/AdminController/editPromo/{id}', 'AdminController@editPromo');
 Route::post('updatePromo/{id}', 'AdminController@updatePromo');
 Route::delete('deletePromo/{id}', 'AdminController@deletePromo');
+
+//Chat
+Route::get('chat/{id}', 'ChatController@chat');
+Route::get('chat', 'ChatController@chat');
+Route::post('insertChat/{id}', 'ChatController@insertChat');
+Route::get('chatAdmin/{id}', 'ChatController@chatAdmin');
+Route::post('insertAdmin/{id}', 'ChatController@insertAdmin');

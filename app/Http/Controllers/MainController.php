@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Models\Menu;
 use App\Models\Models\Promo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cookie;
 
 class MainController extends Controller
@@ -145,6 +146,16 @@ class MainController extends Controller
             "detail_type" => $menu->jenis,
             "menu" => $menu
         ]);
+    }
+
+    public function search(Request $request){
+        $nama_barang = $request->name;
+        $makanan = Menu::where("nama", 'like', '%' . $nama_barang . '%')->get();
+        // $makanan = DB::table('barang')
+        // ->where("nama", 'like', '%' . $nama_barang . '%')->first();
+
+        $popular = Menu::orderBy('click', 'desc')->take(4)->get();
+        return view('templates.search', ['populars' => $popular, 'makanans' => $makanan]);
     }
 }
 
