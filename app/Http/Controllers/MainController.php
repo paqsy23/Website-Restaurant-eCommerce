@@ -149,13 +149,19 @@ class MainController extends Controller
     }
 
     public function search(Request $request){
+        $user_login = $request->session()->get('user-login');
+
         $nama_barang = $request->name;
         $makanan = Menu::where("nama", 'like', '%' . $nama_barang . '%')->get();
         // $makanan = DB::table('barang')
         // ->where("nama", 'like', '%' . $nama_barang . '%')->first();
 
         $popular = Menu::orderBy('click', 'desc')->take(4)->get();
-        return view('templates.search', ['populars' => $popular, 'makanans' => $makanan]);
+        return view('templates.search', [
+            "user" => $user_login,
+            'populars' => $popular,
+            'makanans' => $makanan
+        ]);
     }
 }
 

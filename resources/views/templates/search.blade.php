@@ -84,7 +84,7 @@
                         <li class="nav-item"><a class="nav-link" href="{{ url('register') }}">Sign Up</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url('login') }}">Login</a></li>
                     @else
-                        <li class="nav-item"><a class="nav-link" href="">Contact Us</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('chat/'.$user->id) }}">Contact Us</a></li>
                         <li class="nav-item dropdown">
                             <a href="" class="nav-link dropdown-toggle" id="menu-dropdown" data-toggle="dropdown">{{ $user->nama }}</a>
                             <div class="dropdown-menu" aria-labelledby="menu-dropdown">
@@ -130,47 +130,6 @@
                             <h5 class="card-title">{{ $makanan->nama }}</h5></a>
                             <p class="card-text">
                                 <span class="text-danger" style="font-weight: bold;">Rp. {{ number_format($makanan->harga, 0) }}</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    </div>
-
-    {{-- Content --}}
-    <div class="container mt-5 py-4">
-        <div class="row">
-
-
-            {{-- Popular Menus --}}
-            <div class="col-sm-12 row d-flex h-50 mt-4">
-                <div class="col-sm-6">
-                    <h3>Most Popular Menus</h3>
-                </div>
-                <div class="col-sm-12 dropdown-divider"></div>
-            </div>
-
-            @foreach ($populars as $popular)
-                <div class="col-6 col-md-4 col-lg-3 mt-3">
-                    <div class="card" style="min-height: 25em;">
-                        {{-- Image --}}
-                        @if ($popular->jenis == 'main dish')
-                            <img src="{{ asset('image/main_dish_sample.jpg') }}" alt="" class="card-img">
-                        @elseif ($popular->jenis == 'dessert')
-                            <img src="{{ asset('image/dessert_sample.jpg') }}" alt="" class="card-img">
-                        @elseif ($popular->jenis == 'drink')
-                            <img src="{{ asset('image/drink_sample.jpg') }}" alt="" class="card-img">
-                        @endif
-                        <div class="card-body">
-                            @if ($popular->jenis == 'main dish')
-                                <a href="{{ url('main-dishes/detail/'.$popular->id_barang) }}" class="stretched-link">
-                            @else
-                                <a href="{{ url($popular->jenis.'s/detail/'.$popular->id_barang) }}" class="stretched-link">
-                            @endif
-                            <h5 class="card-title">{{ $popular->nama }}</h5></a>
-                            <p class="card-text">
-                                <span class="text-danger" style="font-weight: bold;">Rp. {{ number_format($popular->harga, 0) }}</span>
                             </p>
                         </div>
                     </div>

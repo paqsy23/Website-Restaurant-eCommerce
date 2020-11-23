@@ -97,7 +97,7 @@
                         <li class="nav-item"><a class="nav-link" href="{{ url('register') }}">Sign Up</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url('login') }}">Login</a></li>
                     @else
-                        <li class="nav-item"><a class="nav-link" href="">Contact Us</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('chat/'.$user->id) }}">Contact Us</a></li>
                         <li class="nav-item dropdown">
                             <a href="" class="nav-link dropdown-toggle" id="menu-dropdown" data-toggle="dropdown">{{ $user->nama }}</a>
                             <div class="dropdown-menu" aria-labelledby="menu-dropdown">
