@@ -66,7 +66,7 @@ class LoginRegisterController extends Controller
     public function registerProcess(Request $request)
     {
         $request->validate([
-            "user_register" => [ "required", new CheckUsername() ],
+            "user_register" => [ "required","max:8", new CheckUsername() ],
             "name_register" => "required",
             "email_register" => [ "required", "email", new CheckEmail() ],
             "pass_register" => "required",
