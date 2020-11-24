@@ -82,6 +82,7 @@ class CartController extends Controller
 
             // Get Address
             $allAddress = $request->session()->get('address');
+            if ($allAddress == null) $allAddress = [];
 
             foreach ($allAddress as $item) {
                 if ($item->status == 1) {

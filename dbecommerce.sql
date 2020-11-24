@@ -28,14 +28,20 @@ CREATE TABLE `alamat` (
   `kodepos` int(10) NOT NULL,
   `penerima` varchar(255) NOT NULL,
   `telp` varchar(255) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`),
   KEY `kota` (`kota`),
   CONSTRAINT `alamat_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`),
   CONSTRAINT `alamat_ibfk_2` FOREIGN KEY (`kota`) REFERENCES `kota` (`id_kota`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 /*Data for the table `alamat` */
+
+insert  into `alamat`(`id`,`id_user`,`kota`,`jalan`,`kodepos`,`penerima`,`telp`,`status`) values 
+(1,'paqsy','KOT002','Jl. Nin Aja Dulu No. 10',60243,'Paqsy','12345678',1),
+(2,'paqsy','KOT002','Jl. Kenangan No. 4',60232,'Samsul','12345678',0),
+(3,'paqsy','KOT007','Jl. Jalan Doang no. 6',60254,'Udin','12345678',0);
 
 /*Table structure for table `barang` */
 
@@ -62,7 +68,7 @@ insert  into `barang`(`id_barang`,`id_kategori`,`nama`,`stock`,`jenis`,`deskrips
 ('MA001','KA001','Coca-Cola',64,'drink','Minuman Bersoda Coca Cola',7500,400,5),
 ('MA002','KA001','Fanta Strawberry',20,'drink','Minuman Bersoda Rasa strawberry',7500,400,2),
 ('MA003','KA001','Fanta grape',20,'drink','Minuman Bersoda rasa Anggur',7500,400,3),
-('MA004','KA001','Fanta Orange',20,'drink','Minuman Bersoda rasa jeruk',7500,400,4),
+('MA004','KA001','Fanta Orange',20,'drink','Minuman Bersoda rasa jeruk',7500,400,6),
 ('MA005','KA001','Ramune Melon',30,'drink','Minuman Bersoda rasa Melon dengan sensasi jejepangan',20500,400,6),
 ('MA006','KA001','Ramune Lemon',24,'drink','Minuman Bersoda rasa Lemon dengan sensasi jejepangan',20500,400,8),
 ('MA007','KA001','Ramune Sakura',36,'drink','Minuman Bersoda rasa Bunga Sakura dengan sensasi jejepangan',20500,400,1),
@@ -80,7 +86,7 @@ insert  into `barang`(`id_barang`,`id_kategori`,`nama`,`stock`,`jenis`,`deskrips
 ('MA019','KA003','Dragonfruit Juice',60,'drink','Jus  Buah Naga yang segar dipadukan dengan susu yang nikmat',14000,500,9),
 ('MA020','KA003','Durian Juice',60,'drink','Jus Durian yang nikmat diminum kapanpun',18000,500,8),
 ('MA021','KA004','Cheese Cake',36,'dessert','Ini adalah itu',20000,500,3),
-('MA022','KA004','Choco Lava',36,'dessert','Ini adalah itu',20000,500,9),
+('MA022','KA004','Choco Lava',36,'dessert','Ini adalah itu',20000,500,15),
 ('MA023','KA004','Strawberry Cheese Cake',36,'dessert','Ini adalah itu',0,500,6),
 ('MA024','KA004','Salad',36,'dessert','Ini adalah itu',22000,500,2),
 ('MA025','KA004','Sour Salad with Cotton Candy',36,'dessert','Ini adalah itu',29000,500,5),
@@ -90,10 +96,10 @@ insert  into `barang`(`id_barang`,`id_kategori`,`nama`,`stock`,`jenis`,`deskrips
 ('MA029','KA005','Triple PUDIDI',36,'dessert','Ini adalah itu',25000,500,4),
 ('MA030','KA005','PUDIDI With Vegies',36,'dessert','Ini adalah itu',30000,500,5),
 ('MA031','KA005','Rainbow Fruit PUDIDI',36,'dessert','Ini adalah itu',35000,500,13),
-('MA032','KA006','Beef Sirloin Steak',36,'main dish','Ini adalah itu',99000,500,11),
-('MA033','KA006','Beef Tenderloin Steak',36,'main dish','Ini adalah itu',99000,500,4),
-('MA034','KA006','Rib Eye',36,'main dish','Ini adalah itu',120000,500,1),
-('MA035','KA006','Premium A5 Sirloin Steak',36,'main dish','Ini adalah itu',125000,500,8),
+('MA032','KA006','Beef Sirloin Steak',36,'main dish','Ini adalah itu',99000,500,13),
+('MA033','KA006','Beef Tenderloin Steak',36,'main dish','Ini adalah itu',99000,500,9),
+('MA034','KA006','Rib Eye',36,'main dish','Ini adalah itu',120000,500,3),
+('MA035','KA006','Premium A5 Sirloin Steak',36,'main dish','Ini adalah itu',125000,500,10),
 ('MA036','KA006','Premium A5 Tenderloin Steak',36,'main dish','Ini adalah itu',125000,500,7),
 ('MA037','KA006','Premium A5 Rib Eye',36,'main dish','Ini adalah itu',175000,500,3),
 ('MA038','KA006','Beef with Black Pepper Sauce ',36,'main dish','Ini adalah itu',50000,500,5),
@@ -123,12 +129,12 @@ CREATE TABLE `cart` (
   `pesan` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_barang` (`id_barang`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 /*Data for the table `cart` */
 
 insert  into `cart`(`id`,`id_user`,`id_barang`,`quantity`,`pesan`) values 
-(3,'paqsy','MA035',7,NULL);
+(7,'stefan','MA033',2,NULL);
 
 /*Table structure for table `chat` */
 
@@ -146,6 +152,10 @@ CREATE TABLE `chat` (
 
 /*Data for the table `chat` */
 
+insert  into `chat`(`id_chat`,`id_chatroom`,`pesan`,`tanggal`,`status`) values 
+('CH001','CR001','asd','2020-11-23',1),
+('CH002','CR001','hola','2020-11-23',1);
+
 /*Table structure for table `chatroom` */
 
 DROP TABLE IF EXISTS `chatroom`;
@@ -159,6 +169,9 @@ CREATE TABLE `chatroom` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `chatroom` */
+
+insert  into `chatroom`(`id_chatroom`,`id_user`,`status`) values 
+('CR001','paqsy',1);
 
 /*Table structure for table `dtrans` */
 
@@ -262,6 +275,20 @@ CREATE TABLE `kota` (
 
 /*Data for the table `kota` */
 
+insert  into `kota`(`id_kota`,`id_provinsi`,`nama`) values 
+('KOT001','PROV008','Jakarta'),
+('KOT002','PROV010','Surabaya'),
+('KOT003','PROV004','Medan'),
+('KOT004','PROV007','Bandung'),
+('KOT005','PROV012','Makassar'),
+('KOT006','PROV009','Semarang'),
+('KOT007','PROV005','Palembang'),
+('KOT008','PROV006','Bandar Lampung'),
+('KOT009','PROV003','Batam'),
+('KOT010','PROV002','Pekanbaru'),
+('KOT011','PROV001','Padang'),
+('KOT012','PROV010','Malang');
+
 /*Table structure for table `promo` */
 
 DROP TABLE IF EXISTS `promo`;
@@ -283,9 +310,9 @@ insert  into `promo`(`id_promo`,`nama_promo`,`potongan_harga`,`detail`,`syarat_p
 ('PR001','Diskon 20% untuk Pengguna Baru',20,'Pengguna yang baru mendaftarkan diri akan dapat diskon sebesar 20% untuk 2x pemesanan. Minimal pembelian Rp30rb.','Minimal pembelian Rp 30.000, Berlaku untuk pengguna baru','new user',30000),
 ('PR002','Diskon Murah Meriah 40%',40,'Nikmati diskon sebesar 40% untuk minimal pembelian Rp55rb!','Minimal pembelian Rp 55.000, Berlaku untuk semua jenis menu','all',55000),
 ('PR003','Diskon Membahana 50%',50,'Nikmati diskon membahana sebesar 50% untuk minimal pembelian seharga Rp100rb!','Minimal pembelian Rp 100.000, Berlaku untuk semua jenis menu','all',100000),
-('PR004','Promo Kejut Rayakan Halloween',45,'Dalam rangka Halloween, Rasakan Potongan Harga Mengejutkan sebesar 45% untuk minimal pembelian seharga Rp70rb!','Minimal pembelian Rp 70.000, Berlaku untuk semua jenis menu','all',70000),
+('PR004','Promo Kejut Rayakan Halloween 45%',45,'Dalam rangka Halloween, Rasakan Potongan Harga Mengejutkan sebesar 45% untuk minimal pembelian seharga Rp70rb!','Minimal pembelian Rp 70.000, Berlaku untuk semua jenis menu','all',70000),
 ('PR005','Diskon Dessert 20%',20,'Ini diskon untuk dessert saja','Minimal pembelian Rp 15.000, Hanya untuk jenis makanan dessert saja','dessert',15000),
-('PR006','Promo Hari Pahlawan',50,'Nikmati hari pahlawan dengan makanan yang berlimpah dengan diskon 50% khusus menu main dish apa saja!','Minimal pembelian Rp 30.000, Berlaku untuk menu main dish saja','main dish',30000),
+('PR006','Promo Hari Pahlawan 50%',50,'Nikmati hari pahlawan dengan makanan yang berlimpah dengan diskon 50% khusus menu main dish apa saja!','Minimal pembelian Rp 30.000, Berlaku untuk menu main dish saja','main dish',30000),
 ('PR007','Promo 50% Semua Makanan Khusus Pengguna Baru',50,'Nikmati diskon 50% untuk semua jenis makanan, khusus pengguna baru','Minimal pembelian Rp 20.000, berlaku untuk semua jenis makanan','new user',20000);
 
 /*Table structure for table `provinsi` */
@@ -299,6 +326,20 @@ CREATE TABLE `provinsi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `provinsi` */
+
+insert  into `provinsi`(`id_provinsi`,`nama`) values 
+('PROV001','Sumatra Barat'),
+('PROV002','Riau'),
+('PROV003','Kepulauan Riau'),
+('PROV004','Sumatra Utara'),
+('PROV005','Sumatra Selatan'),
+('PROV006','Lampung'),
+('PROV007','Jawa Barat'),
+('PROV008','DKI Jakarta'),
+('PROV009','Jawa Tengah'),
+('PROV010','Jawa Timur'),
+('PROV011','Sulawesi Utara'),
+('PROV012','Sulawesi Selatan');
 
 /*Table structure for table `review` */
 
@@ -334,6 +375,7 @@ CREATE TABLE `user` (
 /*Data for the table `user` */
 
 insert  into `user`(`id_user`,`nama`,`email`,`password`,`notelp`) values 
+('akun1','Akun1','akun1@example.test','$2y$10$SSoLeUMwJPldUy33a9ApB.y0YCEVM17Iw0T2HqFQBJvFnGCrmTrnS',12345678),
 ('paqsy','Paqsy Jalasukma','paqsy@gmail.com','$2y$10$L9hUOQHB2XVMKkPVlMSalOYYVZ22nQaJliHAYkv.tU1/f4Qw6c0q6',1234567890),
 ('stefan','stefan','stefan@gmail.com','$2y$10$heyPHzNScFJNR0Ei44o0.uilqLP54TqxUkv8Gtgkb3L1QFKdeoXF6',123123);
 
