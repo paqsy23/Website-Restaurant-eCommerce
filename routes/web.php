@@ -53,6 +53,12 @@ Route::group(['prefix' => 'cart'], function () {
     Route::get('dec/{id}', 'CartController@decreaseCart');
 });
 
+// Transaction
+Route::group(['prefix' => 'trans'], function () {
+    Route::get('/', 'TransController@showHistory');
+    Route::post('checkout', 'TransController@checkout');
+});
+
 // Address
 Route::group(['prefix' => 'address'], function () {
     Route::get('/', 'AddressController@listAddresses');

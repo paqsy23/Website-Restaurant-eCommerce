@@ -4,6 +4,7 @@
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\DB;
     use App\Http\Controllers\Controller;
+use App\Models\Models\Htrans;
 use Illuminate\Support\Facades\Cookie;
 
 class AdminController extends Controller{
@@ -11,7 +12,10 @@ class AdminController extends Controller{
             $user_login = $request->session()->get('user-login');
             if ($user_login->id_user != 'admin') return redirect('/');
 
-            return view('templates.makanan');
+            $trans = Htrans::all();
+            return view('admin_page', [
+                'trans' => $trans
+            ]);
         }
         public function page_insertMakanan(Request $request){
             $user_login = $request->session()->get('user-login');

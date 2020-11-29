@@ -110,7 +110,7 @@
                                 <span class="text-danger" id="total" style="font-weight: bold">Rp. {{ number_format($totalHarga + 15000) }}</span>
                             </div>
                         </div>
-                        <button class="btn btn-danger w-100 mt-1">Pesan</button>
+                        <button class="btn btn-danger w-100 mt-1" target="{{ url('trans/checkout') }}" move="{{ url('cart') }}" onclick="checkout('{{ csrf_token() }}', this)">Pesan</button>
                     </p>
                 </div>
             </div>

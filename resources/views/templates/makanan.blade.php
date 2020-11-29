@@ -29,7 +29,7 @@
     <nav class="navbar fixed-top navbar-dark navbar-expand-lg" style="background-color: #dc3545">
         <div class="container-fluid">
             <div class="navbar-header flex-grow-1" style="max-width: 20%;">
-                <a href="" class="navbar-brand">Ini Nama</a>
+                <a href="{{ url('admin') }}" class="navbar-brand">Ini Nama</a>
             </div>
 
             {{-- Navigation Menu --}}

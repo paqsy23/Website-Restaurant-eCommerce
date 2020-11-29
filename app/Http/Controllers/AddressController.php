@@ -34,8 +34,10 @@ class AddressController extends Controller
         if ($user_login != null) {
             // Set old status
             $selected = Address::where('id_user', $user_login->id_user)->where('status', 1)->first();
-            $selected->status = 0;
-            $selected->save();
+            if ($selected != null) {
+                $selected->status = 0;
+                $selected->save();
+            }
 
             // Set new status
             $selected = Address::find($request->id);

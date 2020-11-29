@@ -102,6 +102,7 @@
                             <a href="" class="nav-link dropdown-toggle" id="menu-dropdown" data-toggle="dropdown">{{ $user->nama }}</a>
                             <div class="dropdown-menu" aria-labelledby="menu-dropdown">
                                 <a href="" class="dropdown-item text-dark">Profile</a>
+                                <a href="{{ url('trans') }}" class="dropdown-item text-dark">History</a>
                                 <a href="{{ url('logout') }}" class="dropdown-item text-dark">Logout</a>
                             </div>
                         </li>
@@ -144,11 +145,13 @@
         if (selected == "") {
             $('#promo-detail').css('display', 'none')
             $('#total').html("Rp. " + (total + 15000).toLocaleString('en'))
+            $('#discount').val(0)
         } else {
             var promo = total * parseInt(selected) / 100
             $('#promo-detail').css('display', 'block')
             $('#nominal').html("- Rp. " + (promo).toLocaleString('en'))
             $('#total').html("Rp. " + (total + 15000 - promo).toLocaleString('en'))
+            $('#discount').val(parseInt(selected))
         }
     })
 
@@ -313,6 +316,40 @@
                 }
             )
         }
+    }
+
+    function checkout(token, e) {
+        var selected = $('#promo :selected').val()
+        var promo = -1
+
+        if (selected == '') promo = 0
+        else promo = parseInt(selected)
+
+        $.post(
+            $(e).attr('target'),
+            {
+                '_token' : token,
+                'discount' : promo
+            }, function (message) {
+                if (message == 'ok') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Order Berhasil',
+                        text: 'Silahkan tunggu konfirmasi',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location = $(e).attr('move')
+                        }
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Order Gagal',
+                        text: message,
+                    })
+                }
+            }
+        )
     }
 </script>
 </html>
