@@ -144,7 +144,8 @@ CREATE TABLE `chat` (
   `id_chat` varchar(8) NOT NULL,
   `id_chatroom` varchar(8) NOT NULL,
   `pesan` varchar(500) NOT NULL,
-  `tanggal` date NOT NULL,
+  `sender` varchar(8) NOT NULL,
+  `tanggal` datetime NOT NULL,
   `status` int(4) NOT NULL,
   PRIMARY KEY (`id_chat`),
   KEY `id_chatroom` (`id_chatroom`)
@@ -152,9 +153,29 @@ CREATE TABLE `chat` (
 
 /*Data for the table `chat` */
 
-insert  into `chat`(`id_chat`,`id_chatroom`,`pesan`,`tanggal`,`status`) values 
-('CH001','CR001','asd','2020-11-23',1),
-('CH002','CR001','hola','2020-11-23',1);
+insert  into `chat`(`id_chat`,`id_chatroom`,`pesan`,`sender`,`tanggal`,`status`) values 
+('CH001','CR001','coba','paqsy','2020-12-01 09:03:56',1),
+('CH002','CR001','alo','paqsy','2020-12-01 09:07:26',1),
+('CH003','CR001','alo juga','admin','2020-12-01 09:09:13',1),
+('CH004','CR001','testing','admin','2020-12-01 09:12:59',1),
+('CH005','CR001','coba lagi','paqsy','2020-12-01 09:21:11',1),
+('CH006','CR001','sikat terus','paqsy','2020-12-01 09:21:17',1),
+('CH007','CR001','ok mantap','admin','2020-12-01 09:22:25',1),
+('CH008','CR001','lanjutkan','admin','2020-12-01 09:22:31',1),
+('CH009','CR001','ok bang','paqsy','2020-12-01 09:22:39',1),
+('CH010','CR001','ini coba chat panjang bang moga aja berhasil','paqsy','2020-12-01 09:30:15',1),
+('CH011','CR001','mantap gan','admin','2020-12-01 09:31:47',1),
+('CH012','CR001','tes','admin','2020-12-01 09:51:48',1),
+('CH013','CR001','alo bang','paqsy','2020-12-01 09:53:52',1),
+('CH014','CR001','tarek sist','admin','2020-12-01 09:57:39',1),
+('CH015','CR001','tes','paqsy','2020-12-01 09:59:30',1),
+('CH016','CR001','coba','paqsy','2020-12-01 10:02:15',1),
+('CH017','CR001','masuk','admin','2020-12-01 10:02:53',1),
+('CH018','CR001','bang','paqsy','2020-12-01 10:16:33',1),
+('CH019','CR001','apa bang','admin','2020-12-01 10:17:08',1),
+('CH020','CR001','gapapa bang','paqsy','2020-12-01 10:17:50',1),
+('CH021','CR001','ok bang','admin','2020-12-01 10:17:59',1),
+('CH022','CR001','alo alo','paqsy','2020-12-01 10:21:06',1);
 
 /*Table structure for table `chatroom` */
 

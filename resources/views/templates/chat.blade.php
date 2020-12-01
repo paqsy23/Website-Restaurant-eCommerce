@@ -158,7 +158,7 @@
         loadChat();
         timer = setInterval(function(){
             loadChat();
-            $('.content-chat').scrollTop($('.content-chat')[0].scrollHeight)
+            $('#content-chat').scrollTop($('.content-chat')[0].scrollHeight)
         },5000);
 
     })
@@ -176,7 +176,7 @@
             }, function() {
                 $('#pesan').val('')
                 loadChat()
-                $('.content-chat').scrollTop($('.content-chat')[0].scrollHeight)
+                $('#content-chat').scrollTop($('#content-chat').scrollHeight)
             }
         )
     }
