@@ -57,6 +57,9 @@ Route::group(['prefix' => 'cart'], function () {
 Route::group(['prefix' => 'trans'], function () {
     Route::get('/', 'TransController@showHistory');
     Route::post('checkout', 'TransController@checkout');
+    Route::get('approve/{id}', 'TransController@confirm');
+    Route::get('reject/{id}', 'TransController@reject');
+    Route::get('cancel/{id}', 'TransController@cancel');
 });
 
 // Address
@@ -103,3 +106,4 @@ Route::get('chat', 'ChatController@chat');
 Route::post('insertChat/{id}', 'ChatController@insertChat');
 Route::get('chatAdmin/{id}', 'ChatController@chatAdmin');
 Route::post('insertAdmin/{id}', 'ChatController@insertAdmin');
+Route::get('load-chat', 'ChatController@showChat');

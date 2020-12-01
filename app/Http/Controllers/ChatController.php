@@ -4,8 +4,9 @@
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\DB;
     use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
-    class ChatController extends Controller{
+class ChatController extends Controller{
         public function chat(Request $request){
             $user_login = $request->session()->get('user-login');
             foreach($user_login as  $user){
@@ -16,8 +17,9 @@
                     $idchat = DB::select("select * from chatroom where id_user = ?", [$user_login['id_user']]);
                     if ($idchat!=null){
                         foreach($idchat as $chat){
+                            $request->session()->put('target-chatroom', $chat->id_chatroom);
                             $chat = DB::select("select * from chat where id_chatroom = ?", [$chat->id_chatroom]);
-                            return view('chat.chatUser', ['chat'=>$chat, "user" => $user_login]);
+                            return view('templates.chat', ['chat'=>$chat, "user" => $user_login]);
                         }
                     }else{
                         $id = "CR";
@@ -35,7 +37,8 @@
                         ->insert(['id_chatroom' => $id, 'id_user' => $user_login['id_user'], 'status' => 1]);
                         if ($row){
                             $chat = DB::select("select * from chat where id_chatroom = ?", [$row['id_chatroom']]);
-                            return view('chat.chatUser', ['chat'=>$chat, "user" => $user_login]);
+                            $request->session()->put('target-chatroom', $row['id_chatroom']);
+                            return view('templates.chat', ['chat'=>$chat, "user" => $user_login]);
                         }
                     }
                 }
@@ -62,11 +65,11 @@
                         $id .= $row[0]->num;
                     }
                     $chat = DB::table('chat')
-                    ->insert(['id_chat' => $id, 'id_chatroom' => $idchatroom->id_chatroom, 'pesan' => $pesan, 'tanggal'=>date("Y/m/d"), 'status'=>1]);
+                    ->insert(['id_chat' => $id, 'id_chatroom' => $idchatroom->id_chatroom, 'pesan' => $pesan, 'sender' => $user_login->id_user, 'tanggal'=>Carbon::now(), 'status'=>1]);
                     if ($chat){
                         foreach($idchat as $chat){
                             $chat = DB::select("select * from chat where id_chatroom = ?", [$chat->id_chatroom]);
-                            return view('chat.chatUser', ['chat'=>$chat, "user" => $user_login]);
+                            return back();
                         }
                     }
                 }
@@ -76,7 +79,8 @@
         public function chatAdmin(Request $request, $idchatroom){
             $user_login = $request->session()->get('user-login');
             $chat = DB::select("select * from chat where id_chatroom = ?", [$idchatroom]);
-            return view('chat.insertAdmin', ["chat"=>$chat,"user" => $user_login]);
+            $request->session()->put('target-chatroom', $idchatroom);
+            return view('templates.chat', ['chat'=>$chat, "user" => $user_login]);
         }
 
         public function insertAdmin(Request $request, $idchatroom){
@@ -96,14 +100,20 @@
                 $id .= $row[0]->num;
             }
             $chat = DB::table('chat')
-            ->insert(['id_chat' => $id, 'id_chatroom' => $idchatroom, 'pesan' => $pesan, 'tanggal'=>date("Y/m/d"), 'status'=>1]);
+            ->insert(['id_chat' => $id, 'id_chatroom' => $idchatroom, 'pesan' => $pesan, 'sender' => $user_login->id_user, 'tanggal'=> Carbon::now(), 'status'=>1]);
             if ($chat){
                 foreach($idchat as $chat){
                     $chat = DB::select("select * from chat where id_chatroom = ?", [$chat->id_chatroom]);
-                    return view('chat.insertAdmin', ["chat"=>$chat,"user" => $user_login]);
+                    return back();
                 }
             }
         }
 
+        public function showChat(Request $request){
+            $user_login = $request->session()->get('user-login');
+            $idchatroom = $request->session()->get('target-chatroom');
+            $chat = DB::select("select * from chat where id_chatroom = ?", [$idchatroom]);
+            return view('chat.chat-display', ['chat'=>$chat, "user" => $user_login]);
+        }
     }
 ?>

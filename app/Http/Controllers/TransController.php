@@ -126,4 +126,9 @@ class TransController extends Controller
     {
 
     }
+
+    public function cancel(Request $request)
+    {
+
+    }
 }
