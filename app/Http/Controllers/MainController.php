@@ -155,13 +155,44 @@ class MainController extends Controller
         $makanan = Menu::where("nama", 'like', '%' . $nama_barang . '%')->get();
         // $makanan = DB::table('barang')
         // ->where("nama", 'like', '%' . $nama_barang . '%')->first();
+        $kategori = DB::table('kategori')->select('nama')->groupBy('nama')->get();
+        $makanan1 = DB::table('barang')->select('jenis')->groupBy('jenis')->get();
 
-        $popular = Menu::orderBy('click', 'desc')->take(4)->get();
+        //$popular = Menu::orderBy('click', 'desc')->take(4)->get();
         return view('templates.search', [
             "user" => $user_login,
-            'populars' => $popular,
-            'makanans' => $makanan
+            #'populars' => $popular,
+            'nama_barang' => $nama_barang,
+            'makanans' => $makanan,
+            'makanans1' => $makanan1,
+            'kategoris' => $kategori
         ]);
+    }
+
+    public function filter(Request $request, $nama_barang){
+        $user_login = $request->session()->get('user-login');
+        $filter = $request->language;
+        $nama_barang;
+        $makanan = DB::table('barang')->select('barang.nama', 'barang.harga', 'barang.jenis', 'barang.id_barang', 'barang.id_kategori')
+        ->where('barang.nama', 'like', '%' . $nama_barang . '%')
+        ->Join('kategori', 'barang.id_kategori', '=','kategori.id_kategori')->whereIn('jenis', $filter)->orwhereIn('kategori.nama', $filter)
+        ->where('barang.nama', 'like', '%' . $nama_barang . '%')
+        ->get();
+        $kategori = DB::table('kategori')->select('nama')->groupBy('nama')->get();
+        $makanan1 = DB::table('barang')->select('jenis')->groupBy('jenis')->get();
+        var_dump($makanan);
+        return view('templates.search', [
+            "user" => $user_login,
+            #'populars' => $popular,
+            'nama_barang' => $nama_barang,
+            'makanans' => $makanan,
+            'makanans1' => $makanan1,
+            'kategoris' => $kategori
+        ]);
+        //var_dump($filter);
+        // return view('templates.search', [
+        //     "user" => $user_login
+        // ]);
     }
 }
 

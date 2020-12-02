@@ -43,6 +43,7 @@ Route::group(['prefix' => 'drinks'], function () {
     Route::get('detail/{id}', 'MainController@menuDetail');
 });
 Route::get('search', 'MainController@search');
+Route::get('filter/{nama}', 'MainController@filter');
 
 // Cart
 Route::group(['prefix' => 'cart'], function () {

@@ -101,7 +101,24 @@
     {{-- Content --}}
     <div class="container mt-5 py-4">
         <div class="row">
-
+            <div style="width: 600px;">
+                <form action="{{ url('filter') }}/{{$nama_barang}}" method="get">
+                <div style="float: left; width: 200px;">
+                    <h4><b>Jenis</b></h4>
+                    @foreach ($kategoris as $kategori)
+                        <p><input type="checkbox" name="language[]"  value="{{$kategori->nama}}"/>{{$kategori->nama}}</p>
+                    @endforeach
+                </div>
+                <div style="float: left; width: 200px;">
+                    <h4><b>Kategori</b></h4>
+                    @foreach ($makanans1 as $makanan1)
+                        <p><input type="checkbox" name="language[]"  value="{{$makanan1->jenis}}"/>{{$makanan1->jenis}}</p>
+                    @endforeach
+                </div>
+                <div style="float: left; width: 200px;"><p><input type="submit" name="submit" class="btn btn-info" value="Filter" /></p></div>
+                <br style="clear: left;" />
+                </form>
+            </div>
 
             {{-- Search Menus --}}
             <div class="col-sm-12 row d-flex h-50 mt-4">
