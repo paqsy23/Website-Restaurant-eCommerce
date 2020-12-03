@@ -180,7 +180,6 @@ class MainController extends Controller
         ->get();
         $kategori = DB::table('kategori')->select('nama')->groupBy('nama')->get();
         $makanan1 = DB::table('barang')->select('jenis')->groupBy('jenis')->get();
-        var_dump($makanan);
         return view('templates.search', [
             "user" => $user_login,
             #'populars' => $popular,

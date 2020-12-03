@@ -101,58 +101,62 @@
     {{-- Content --}}
     <div class="container mt-5 py-4">
         <div class="row">
-            <div style="width: 600px;">
+            <div class="col-12 col-md-4 col-lg-3 mt-4">
                 <form action="{{ url('filter') }}/{{$nama_barang}}" method="get">
                 <div style="float: left; width: 200px;">
-                    <h4><b>Jenis</b></h4>
+                    <h4>Jenis</h4>
                     @foreach ($kategoris as $kategori)
-                        <p><input type="checkbox" name="language[]"  value="{{$kategori->nama}}"/>{{$kategori->nama}}</p>
+                        <p><input type="checkbox" name="language[]"  value="{{$kategori->nama}}"/> {{$kategori->nama}}</p>
                     @endforeach
                 </div>
                 <div style="float: left; width: 200px;">
-                    <h4><b>Kategori</b></h4>
+                    <h4>Kategori</h4>
                     @foreach ($makanans1 as $makanan1)
-                        <p><input type="checkbox" name="language[]"  value="{{$makanan1->jenis}}"/>{{$makanan1->jenis}}</p>
+                        <p><input type="checkbox" name="language[]"  value="{{$makanan1->jenis}}"/> {{ucfirst($makanan1->jenis)}}</p>
                     @endforeach
                 </div>
-                <div style="float: left; width: 200px;"><p><input type="submit" name="submit" class="btn btn-info" value="Filter" /></p></div>
+                <div><p><input type="submit" name="submit" class="btn btn-info w-100    " value="Filter" /></p></div>
                 <br style="clear: left;" />
                 </form>
             </div>
 
-            {{-- Search Menus --}}
-            <div class="col-sm-12 row d-flex h-50 mt-4">
-                <div class="col-sm-6">
-                    <h3>Menus</h3>
-                </div>
-                <div class="col-sm-12 dropdown-divider"></div>
-            </div>
-
-            @foreach ($makanans as $makanan)
-                <div class="col-6 col-md-4 col-lg-3 mt-3">
-                    <div class="card" style="min-height: 25em;">
-                        {{-- Image --}}
-                        @if ($makanan->jenis == 'main dish')
-                            <img src="{{ asset('image/main_dish_sample.jpg') }}" alt="" class="card-img">
-                        @elseif ($makanan->jenis == 'dessert')
-                            <img src="{{ asset('image/dessert_sample.jpg') }}" alt="" class="card-img">
-                        @elseif ($makanan->jenis == 'drink')
-                            <img src="{{ asset('image/drink_sample.jpg') }}" alt="" class="card-img">
-                        @endif
-                        <div class="card-body">
-                            @if ($makanan->jenis == 'main dish')
-                                <a href="{{ url('main-dishes/detail/'.$makanan->id_barang) }}" class="stretched-link">
-                            @else
-                                <a href="{{ url($makanan->jenis.'s/detail/'.$makanan->id_barang) }}" class="stretched-link">
-                            @endif
-                            <h5 class="card-title">{{ $makanan->nama }}</h5></a>
-                            <p class="card-text">
-                                <span class="text-danger" style="font-weight: bold;">Rp. {{ number_format($makanan->harga, 0) }}</span>
-                            </p>
+            <div class="col-12 col-md-8 col-lg-9">
+                <div class="row">
+                    {{-- Search Menus --}}
+                    <div class="col-sm-12 row d-flex h-50 mt-4">
+                        <div class="col-sm-6">
+                            <h3>Menus</h3>
                         </div>
+                        <div class="col-sm-12 dropdown-divider"></div>
                     </div>
+
+                    @foreach ($makanans as $makanan)
+                        <div class="col-6 col-md-4 col-lg-3 mt-3">
+                            <div class="card" style="min-height: 20em;">
+                                {{-- Image --}}
+                                @if ($makanan->jenis == 'main dish')
+                                    <img src="{{ asset('image/main_dish_sample.jpg') }}" alt="" class="card-img">
+                                @elseif ($makanan->jenis == 'dessert')
+                                    <img src="{{ asset('image/dessert_sample.jpg') }}" alt="" class="card-img">
+                                @elseif ($makanan->jenis == 'drink')
+                                    <img src="{{ asset('image/drink_sample.jpg') }}" alt="" class="card-img">
+                                @endif
+                                <div class="card-body">
+                                    @if ($makanan->jenis == 'main dish')
+                                        <a href="{{ url('main-dishes/detail/'.$makanan->id_barang) }}" class="stretched-link">
+                                    @else
+                                        <a href="{{ url($makanan->jenis.'s/detail/'.$makanan->id_barang) }}" class="stretched-link">
+                                    @endif
+                                    <h5 class="card-title">{{ $makanan->nama }}</h5></a>
+                                    <p class="card-text">
+                                        <span class="text-danger" style="font-weight: bold;">Rp. {{ number_format($makanan->harga, 0) }}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
-            @endforeach
+            </div>
         </div>
     </div>
 </body>
