@@ -108,3 +108,9 @@ Route::post('insertChat/{id}', 'ChatController@insertChat');
 Route::get('chatAdmin/{id}', 'ChatController@chatAdmin');
 Route::post('insertAdmin/{id}', 'ChatController@insertAdmin');
 Route::get('load-chat', 'ChatController@showChat');
+
+//faq
+Route::get('faq', function ()
+{
+    return view("faq.faq");
+});
