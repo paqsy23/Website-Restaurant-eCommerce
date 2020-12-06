@@ -1,8 +1,4 @@
-@extends("templates/makanan")
-
-@section('title')
-    <h2>FAQ</h2>
-@endsection
+@extends("templates/main-page")
 
 @section('content')
 <!DOCTYPE html>
@@ -14,6 +10,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
+    <h2>FAQ</h2>
     <div class="card" style="width: 100%; height: auto;">
         <div class="card-body">
             <div class="container">

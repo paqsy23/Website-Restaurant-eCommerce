@@ -62,7 +62,9 @@
                             <a href="{{ url('page_listKategori') }}" class="dropdown-item text-dark">List Kategori</a>
                         </div>
                     </li>
-
+                    <li class="nav-item">
+                        <a href="{{ url('faq') }}" class="nav-link">FAQ</a>
+                    </li>
                     <li class="nav-item">
                         <a href="{{ url('logout') }}" class="nav-link">Logout</a>
                     </li>
