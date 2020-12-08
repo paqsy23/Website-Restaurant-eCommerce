@@ -52,7 +52,6 @@
                         <li class="nav-item"><a class="nav-link" href="{{ url('login') }}">Login</a></li>
                     @else
                         <li class="nav-item"><a class="nav-link" href="{{ url('chat/'.$user->id) }}">Contact Us</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url('faq') }}">FAQ</a></li>
                         <li class="nav-item dropdown">
                             <a href="" class="nav-link dropdown-toggle" id="menu-dropdown" data-toggle="dropdown">{{ $user->nama }}</a>
                             <div class="dropdown-menu" aria-labelledby="menu-dropdown">
@@ -62,6 +61,7 @@
                             </div>
                         </li>
                     @endif
+                    <li class="nav-item"><a class="nav-link" href="{{ url('faq') }}">FAQ</a></li>
                 </ul>
             </div>
         </div>
