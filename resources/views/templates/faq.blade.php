@@ -47,19 +47,21 @@
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav ml-auto" id="right-nav">
                     @if (Session::get('user-login') == null)
+                        <li class="nav-item"><a class="nav-link" href="{{ url('faq') }}">FAQ</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url('register') }}">Sign Up</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url('login') }}">Login</a></li>
                     @else
                         <li class="nav-item"><a class="nav-link" href="{{ url('chat/'.$user->id) }}">Contact Us</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('faq') }}">FAQ</a></li>
                         <li class="nav-item dropdown">
                             <a href="" class="nav-link dropdown-toggle" id="menu-dropdown" data-toggle="dropdown">{{ $user->nama }}</a>
                             <div class="dropdown-menu" aria-labelledby="menu-dropdown">
                                 <a href="" class="dropdown-item text-dark">Profile</a>
+                                <a href="{{ url('trans') }}" class="dropdown-item text-dark">History</a>
                                 <a href="{{ url('logout') }}" class="dropdown-item text-dark">Logout</a>
                             </div>
                         </li>
                     @endif
-                    <li class="nav-item"><a class="nav-link" href="{{ url('faq') }}">FAQ</a></li>
                 </ul>
             </div>
         </div>

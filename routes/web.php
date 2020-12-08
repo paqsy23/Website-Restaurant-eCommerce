@@ -58,9 +58,8 @@ Route::group(['prefix' => 'cart'], function () {
 Route::group(['prefix' => 'trans'], function () {
     Route::get('/', 'TransController@showHistory');
     Route::post('checkout', 'TransController@checkout');
-    Route::get('approve/{id}', 'TransController@confirm');
-    Route::get('reject/{id}', 'TransController@reject');
-    Route::get('cancel/{id}', 'TransController@cancel');
+    Route::post('action', 'TransController@action');
+    Route::get('detail/{id}', 'TransController@showDetail');
 });
 
 // Address

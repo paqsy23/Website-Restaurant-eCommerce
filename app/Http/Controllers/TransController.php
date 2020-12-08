@@ -6,6 +6,7 @@ use App\Models\Models\Address;
 use App\Models\Models\Cart;
 use App\Models\Models\Dtrans;
 use App\Models\Models\Htrans;
+use App\Models\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,7 +17,7 @@ class TransController extends Controller
         $user_login = $request->session()->get('user-login');
         $user_trans = Htrans::where('id_user', $user_login->id_user)->get();
 
-        return view('user.history', [
+        return view('user.history.main', [
             'user' => $user_login,
             'trans' => $user_trans
         ]);
@@ -117,18 +118,54 @@ class TransController extends Controller
         }
     }
 
-    public function confirm(Request $request)
+    public function action(Request $request)
     {
+        $trans = Htrans::find($request->id_trans);
 
+        if ($request->has('detail')) {
+            return redirect('trans/detail/'.$request->id_trans);
+        } else if ($request->has('cancel')) {
+            $trans->status = -2;
+            $trans->save();
+        } else if ($request->has('reject')) {
+            $trans->status = -1;
+            $trans->save();
+        } else if ($request->has('approve')) {
+            $available = true;
+
+            foreach ($trans->Dtrans as $dtrans) {
+                if ($dtrans->Menu->stock - $dtrans->quantity < 0) {
+                    $available = false;
+                }
+            }
+
+            if ($available) {
+                foreach ($trans->Dtrans as $dtrans) {
+                    $selected = Menu::find($dtrans->id_barang);
+
+                    $selected->stock -= $dtrans->quantity;
+                    $selected->save();
+                }
+
+                $trans->status = 1;
+                $trans->save();
+            } else {
+                $request->session()->flash('message', 'Salah satu menu tidak memiliki stok yang cukup');
+            }
+        }
+
+        return back();
     }
 
-    public function reject(Request $request)
+    public function showDetail(Request $request)
     {
+        $selected = Htrans::find($request->id);
+        $user_login = $request->session()->get('user-login');
 
-    }
-
-    public function cancel(Request $request)
-    {
-
+        return view('user.history.detail', [
+            'user' => $user_login,
+            'htrans' => $selected,
+            'trans' => $selected->Dtrans
+        ]);
     }
 }
