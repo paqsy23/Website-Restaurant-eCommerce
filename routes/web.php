@@ -111,3 +111,8 @@ Route::get('load-chat', 'ChatController@showChat');
 
 //faq
 Route::get('faq', 'faqController@landing');
+
+//Profile
+Route::get('profile', 'ProfileController@landing');
+Route::post('update-profile', 'ProfileController@updateProfile');
+Route::post('update-password', 'ProfileController@updatePassword');

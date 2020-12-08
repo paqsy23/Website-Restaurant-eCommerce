@@ -421,6 +421,7 @@ insert  into `user`(`id_user`,`nama`,`email`,`password`,`notelp`) values
 ('akun1','Akun1','akun1@example.test','$2y$10$SSoLeUMwJPldUy33a9ApB.y0YCEVM17Iw0T2HqFQBJvFnGCrmTrnS','12345678'),
 ('paqsy','Paqsy Jalasukma','paqsy@gmail.com','$2y$10$L9hUOQHB2XVMKkPVlMSalOYYVZ22nQaJliHAYkv.tU1/f4Qw6c0q6','1234567890'),
 ('stefan','stefan','stefan@gmail.com','$2y$10$heyPHzNScFJNR0Ei44o0.uilqLP54TqxUkv8Gtgkb3L1QFKdeoXF6','123123');
+('agung','Agung Harianto','agung@gmail.com','$2y$10$d/uQuMYvtkNiyXXRnngDR.kzSU3CnOXenYrk8NBj4O6kbDVqTviVG','081332869109');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
