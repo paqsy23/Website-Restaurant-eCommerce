@@ -63,9 +63,6 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('faq') }}" class="nav-link">FAQ</a>
-                    </li>
-                    <li class="nav-item">
                         <a href="{{ url('logout') }}" class="nav-link">Logout</a>
                     </li>
                 </ul>

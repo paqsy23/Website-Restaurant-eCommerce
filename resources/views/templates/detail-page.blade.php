@@ -48,6 +48,7 @@
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav ml-auto" id="right-nav">
                     @if (Session::get('user-login') == null)
+                        <li class="nav-item"><a class="nav-link" href="{{ url('faq') }}">FAQ</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url('register') }}">Sign Up</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url('login') }}">Login</a></li>
                     @else

@@ -6,14 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/google_icons.css') }}">
     <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.js') }}"></script>
     <style>
-        a { color: #dc3545; }
-        a:hover { color: black; }
-        .card { box-shadow: 0 0 0.2em gray }
-        .card-header { background-color: rgba(0, 0, 0, 0); }
-
         #right-nav li a { color: white; }
         .float-button {
             position: fixed;
@@ -23,21 +19,11 @@
             bottom: 0;
             right: 0;
         }
-
-        #content-chat {
-            height: 24em;
-            overflow: scroll;
-        }
-        .bubble-chat {
-            max-width: 40%;
-            padding: 0.5em 1em;
-            margin-bottom: 0.5em;
-            border: 1px solid #dc3545;
-            border-radius: 0.5em;
-        }
-        .bubble-chat.left {
+        .pagination .page-item a { color: #dc3545; }
+        .page-item.active .page-link {
             background-color: #dc3545;
-            color: white;
+            border-color: #dc3545;
+            color: #ffffff;
         }
     </style>
 </head>
@@ -80,7 +66,6 @@
                                 <a href="{{ url('page_listKategori') }}" class="dropdown-item text-dark">List Kategori</a>
                             </div>
                         </li>
-
                         <li class="nav-item">
                             <a href="{{ url('logout') }}" class="nav-link">Logout</a>
                         </li>
@@ -119,12 +104,8 @@
                             <li class="nav-item dropdown">
                                 <a href="" class="nav-link dropdown-toggle" id="menu-dropdown" data-toggle="dropdown">{{ $user->nama }}</a>
                                 <div class="dropdown-menu" aria-labelledby="menu-dropdown">
-<<<<<<< HEAD
-                                    <a href="{{ url('profile') }}" class="dropdown-item text-dark">Profile</a>
-=======
                                     <a href="" class="dropdown-item text-dark">Profile</a>
                                     <a href="{{ url('trans') }}" class="dropdown-item text-dark">History</a>
->>>>>>> c6cb5acd396010cb0e198686e075de3faa54bc1a
                                     <a href="{{ url('logout') }}" class="dropdown-item text-dark">Logout</a>
                                 </div>
                             </li>
@@ -133,60 +114,23 @@
                 </div>
             </div>
         @endif
-
     </nav>
 
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-12 col-md-8 mt-4 py-5">
-                <h2>Chat</h2>
-                <div id="content-chat" class="mb-3" target="{{ url('load-chat') }}"></div>
-                <div class="row">
-                    @csrf
-                    <div class="form-group col-9">
-                        <input type="text" name="pesan" id="pesan" class="form-control w-100">
-                    </div>
-                    <div class="col-3">
-                        <button type="submit" class="btn btn-danger w-100" @if(Session::get('user-login')->id_user != 'admin') target="{{ url('insertChat') }}/{{ $user->id_user }}" @else target="{{ url('insertAdmin') }}/{{ Session::get('target-chatroom') }}" @endif onclick="sendChat(this, '{{ csrf_token() }}')">Submit</button>
-                    </div>
+    {{-- Content --}}
+    <div class="container mt-5 py-4">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="text-left">
+                    <h1>@yield('title')</h1>
+                    <span class="text-muted">@yield('id-trans')</span>
                 </div>
+                @if (count($trans) > 0)
+                    @yield('table')
+                @else
+                    @yield('empty')
+                @endif
             </div>
         </div>
     </div>
 </body>
 </html>
-<script>
-    var timer
-    $(document).ready(function () {
-        $('#myTab a').on('click', function (e) {
-            e.preventDefault()
-            $(this).tab('show')
-        })
-        loadChat();
-        timer = setInterval(function(){
-            loadChat();
-            $('#content-chat').scrollTop($('#content-chat')[0].scrollHeight)
-        },5000);
-
-    })
-
-    function loadChat() {
-        $('#content-chat').load($('#content-chat').attr('target'))
-    }
-
-    function sendChat(e, token) {
-        $.post(
-            $(e).attr('target'),
-            {
-                '_token' : token,
-                'pesan' : $('#pesan').val()
-            }, function() {
-                $('#pesan').val('')
-                loadChat()
-                $('#content-chat').scrollTop($('#content-chat').scrollHeight)
-            }
-        )
-    }
-
-    $('.dropdown-toggle').dropdown();
-</script>
