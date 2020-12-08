@@ -119,12 +119,8 @@
                             <li class="nav-item dropdown">
                                 <a href="" class="nav-link dropdown-toggle" id="menu-dropdown" data-toggle="dropdown">{{ $user->nama }}</a>
                                 <div class="dropdown-menu" aria-labelledby="menu-dropdown">
-<<<<<<< HEAD
                                     <a href="{{ url('profile') }}" class="dropdown-item text-dark">Profile</a>
-=======
-                                    <a href="" class="dropdown-item text-dark">Profile</a>
                                     <a href="{{ url('trans') }}" class="dropdown-item text-dark">History</a>
->>>>>>> c6cb5acd396010cb0e198686e075de3faa54bc1a
                                     <a href="{{ url('logout') }}" class="dropdown-item text-dark">Logout</a>
                                 </div>
                             </li>
