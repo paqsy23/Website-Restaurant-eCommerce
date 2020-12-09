@@ -148,8 +148,11 @@ class MainController extends Controller
         foreach ($review as $key => $rev) {
             $rate=$rate+$rev->rating;
         }
-        $rate = $rate/count($review);
-        $rate = round($rate,1);
+        if (count($review)>0) {
+            $rate = $rate/count($review);
+            $rate = round($rate,1);
+        }
+
         $users = User::all();
         // dd($rate);
 
