@@ -117,23 +117,25 @@
                 <a href="#kota" class="btn btn-info" data-toggle="collapse">SHOW COMMENT</a>
                 <div id="kota" class="collapse">
                     @foreach ($review as $item)
-                        <br>
+
 
                                 @foreach ($users as $value)
                                     @if ($value->id_user == $item->id_user)
+                                        <br>
                                         <h4>
                                             {{$value->nama}}
                                             @for ($i = 0; $i < $item->rating; $i++)
                                                 <span class="icon" style="color: red">★</span>
                                             @endfor
                                         </h4>
+                                        <h5>
+                                            {{$item->pesan}}
+                                        </h5>
+                                        <br>
+                                        <hr>
                                     @endif
                                 @endforeach
-
-                        <br>
-
                     @endforeach
-
                 </div>
               </div>
         </div>
