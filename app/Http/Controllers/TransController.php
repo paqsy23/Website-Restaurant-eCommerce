@@ -189,8 +189,8 @@ class TransController extends Controller
         ];
         // dd($reviews);
         $temp = review::where("id_user",$req->input("id_user"))->where("id_barang",$req->input("id_barang"))->where("id_dtrans",$req->input("id_dtrans"))->get();
-        // dd($temp);
-        if ($temp) {
+        // dd(count($temp));
+        if (count($temp)>0) {
             $review = review::where("id_review",$temp[0]->id_review)->update(["rating"=>$req->input("rating"),
             "pesan"=>$pesan,]);
         }else{

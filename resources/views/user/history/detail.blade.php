@@ -108,13 +108,13 @@
                                 style="width: 100%; height: 50px"> </td>
                             <td>
                                 {{-- COBA RATING --}}
-                                <input type="hidden" id="rating" name="rating" value="
+                                <input type="hidden" id="rating" name="rating"
                                 @foreach ($review as $rev)
                                     @if ($rev->id_dtrans==$item->id_dtrans)
-                                    {{$rev->rating}}
+                                    value="{{$rev->rating}}"
                                     @endif
                                 @endforeach
-                                ">
+                                >
                                 <input type="hidden" id="id_user" name="id_user" value="{{$user->id_user}}">
                                 <input type="hidden" id="id_transaksi" name="id_transaksi" value="{{$htrans->id_trans}}">
                                 <input type="hidden" id="id_dtrans" name="id_dtrans" value="{{$item->id_dtrans}}">
