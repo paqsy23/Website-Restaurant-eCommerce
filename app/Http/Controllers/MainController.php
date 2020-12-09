@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Models\Menu;
 use App\Models\Models\Promo;
+use App\Models\Models\review;
+use App\Models\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cookie;
@@ -141,10 +143,23 @@ class MainController extends Controller
         $menu->click += 1;
         $menu->save();
 
+        $review = review::where("id_barang",$id)->get();
+        $rate = 0;
+        foreach ($review as $key => $rev) {
+            $rate=$rate+$rev->rating;
+        }
+        $rate = $rate/count($review);
+        $rate = round($rate,1);
+        $users = User::all();
+        // dd($rate);
+
         return view('user.menu.detail', [
             "user" => $user_login,
             "detail_type" => $menu->jenis,
-            "menu" => $menu
+            "menu" => $menu,
+            "review" => $review,
+            "rate" => $rate,
+            "users" => $users,
         ]);
     }
 

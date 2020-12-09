@@ -12,6 +12,8 @@
         <input type="text" name="" id="qty" class="form-control text-center" value="1" style="width: 3em; display: inline-block; height: auto;">
         <button class="btn btn-outline-danger" id="qty-inc" style="padding: 0.275rem 0.70rem">+</button>
     </div>
+
+
 @endsection
 
 @section('footer')
