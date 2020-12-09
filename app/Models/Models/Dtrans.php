@@ -2,6 +2,7 @@
 
 namespace App\Models\Models;
 
+// use App\Models\review;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,4 +22,8 @@ class Dtrans extends Model
     {
         return $this->belongsTo(Menu::class, 'id_barang', 'id_barang');
     }
+    // public function review()
+    // {
+    //     return $this->hasMany(review::class,"id_dtrans","id_dtrans");
+    // }
 }

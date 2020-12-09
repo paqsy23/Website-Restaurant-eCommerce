@@ -7,6 +7,7 @@ use App\Models\Models\Cart;
 use App\Models\Models\Dtrans;
 use App\Models\Models\Htrans;
 use App\Models\Models\Menu;
+use App\Models\Models\review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -161,11 +162,42 @@ class TransController extends Controller
     {
         $selected = Htrans::find($request->id);
         $user_login = $request->session()->get('user-login');
+        $review = review::where("id_user",$user_login->id_user)->get();
+
+        // dd($review);
 
         return view('user.history.detail', [
             'user' => $user_login,
             'htrans' => $selected,
+            'review' => $review,
             'trans' => $selected->Dtrans
         ]);
+    }
+
+    public function submitReview(Request $req)
+    {
+        $pesan = "";
+        if ($req->input("pesan")!=null) {
+            $pesan = $req->input("pesan");
+        }
+        $reviews = [
+            "id_user"=>$req->input("id_user"),
+            "id_barang"=>$req->input("id_barang"),
+            "id_dtrans"=>$req->input("id_dtrans"),
+            "rating"=>$req->input("rating"),
+            "pesan"=>$pesan,
+        ];
+        // dd($reviews);
+        $temp = review::where("id_user",$req->input("id_user"))->where("id_barang",$req->input("id_barang"))->where("id_dtrans",$req->input("id_dtrans"))->get();
+        // dd($temp);
+        if ($temp) {
+            $review = review::where("id_review",$temp[0]->id_review)->update(["rating"=>$req->input("rating"),
+            "pesan"=>$pesan,]);
+        }else{
+           $review = review::create($reviews);
+        }
+        return redirect("http://127.0.0.1:8000/trans/detail/".$req->input("id_transaksi"));
+
+
     }
 }

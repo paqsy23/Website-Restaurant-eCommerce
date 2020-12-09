@@ -110,6 +110,7 @@ Route::get('load-chat', 'ChatController@showChat');
 
 //faq
 Route::get('faq', 'faqController@landing');
+Route::post('submitReview', 'TransController@submitReview');
 
 //Profile
 Route::get('profile', 'ProfileController@landing');
