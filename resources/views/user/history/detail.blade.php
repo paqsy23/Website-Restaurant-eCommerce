@@ -95,8 +95,6 @@
                     <td>Rp. {{ number_format($item->subtotal) }}</td>
                 </tr>
                 @if ($htrans->status == 1)
-                    BERUAMH
-                @endif
                     <tr>
                         <form action="/submitReview" method="post">
                             @csrf
@@ -107,7 +105,7 @@
                                     value="{{$rev->pesan}}"
                                     @endif
                                 @endforeach
-                                 style="width: 100%; height: 50px"> </td>
+                                style="width: 100%; height: 50px"> </td>
                             <td>
                                 {{-- COBA RATING --}}
                                 <input type="hidden" id="rating" name="rating" value="
@@ -190,6 +188,8 @@
                         </form>
 
                     </tr>
+                @endif
+
             @endforeach
         </tbody>
     </table>
